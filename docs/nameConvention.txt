@@ -1,0 +1,7 @@
+Backend-response:
+{ 
+   sucess : true/ false,
+   data:  {} | full 
+   error: 
+  statusCode: 202
+} 
