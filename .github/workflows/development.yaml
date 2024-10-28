@@ -16,13 +16,13 @@ jobs:
       pages: write
 
     steps:
-      - name: Change directory
-        run: cd Frontend
       - uses: actions/checkout@v4 
       - name: Install modules
         run: npm install
+        working-directory: Frontend
       - name: Build dist
         run: npm run build
+        working-directory: Frontend
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload dist folder
