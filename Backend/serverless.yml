@@ -1,32 +1,19 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
-org: ${env:SERVERLESS_ORG}
-# "service" is the name of this project. This will also be added to your AWS resource names.
-service: ${env:SERVERLESS_SERVICE}
-
-stages:
-  default:
-    params:
-      tableName: "users-table-${sls:stage}"
-
-build:
-  esbuild:
-    minify: true
-
-package:
-  individually: true
-
+org: "pettersson332"
+service: "meetups"
 
 provider:
   name: aws
   runtime: nodejs20.x
+  region: eu-north-1
   iam:
-    role: ${env:AWS_ROLE}
+    role: arn:aws:iam::676206943781:role/dev-db
 
 functions:
   api:
-    handler: handler.handler
+    handler: handler.handler # Make sure to replace 'app' with the actual exported function in your handler.js
     events:
-      - httpApi: "*"
+      - httpApi: # Using HTTP API Gateway
+          path: "*" # Ensures it captures all paths
 
 resources:
   Resources:
@@ -40,15 +27,4 @@ resources:
           - AttributeName: userId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-        TableName:  ${env:TABLE_NAME_USERS}
-    MeetingsTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        AttributeDefinitions:
-          - AttributeName: MeetingId
-            AttributeType: S
-        KeySchema:
-          - AttributeName: MeetingId
-            KeyType: HASH
-        BillingMode: PAY_PER_REQUEST
-        TableName:  ${env:TABLE_NAME_MEETINGS}
+        TableName: "users-meetings"

@@ -1,74 +1,35 @@
-const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-
-const {
-  DynamoDBDocumentClient,
-  GetCommand,
-  PutCommand,
-} = require("@aws-sdk/lib-dynamodb");
-
 const express = require("express");
 const serverless = require("serverless-http");
-
+const { db } = require("./db"); // Import your DynamoDB Document client
 const app = express();
 
-const USERS_TABLE = process.env.USERS_TABLE;
-const client = new DynamoDBClient();
-const docClient = DynamoDBDocumentClient.from(client);
-
+// Middleware to parse JSON requests
 app.use(express.json());
 
-// app.get("/users/:userId", async (req, res) => {
-//   const params = {
-//     TableName: USERS_TABLE,
-//     Key: {
-//       userId: req.params.userId,
-//     },
-//   };
+// Endpoint to fetch all user IDs
+app.get("/users", async (req, res) => {
+  try {
+    // Scan the Users table to get all user IDs
+    const result = await db.scan({
+      TableName: "users-meetings",
+    });
 
-//   try {
-//     const command = new GetCommand(params);
-//     const { Item } = await docClient.send(command);
-//     if (Item) {
-//       const { userId, name } = Item;
-//       res.json({ userId, name });
-//     } else {
-//       res
-//         .status(404)
-//         .json({ error: 'Could not find user with provided "userId"' });
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: "Could not retrieve user" });
-//   }
-// });
+    // Extract user IDs from the result
+    const userIds = result.Items.map((item) => item.userId); // Assuming each item has a userId attribute
 
-// app.post("/users", async (req, res) => {
-//   const { userId, name } = req.body;
-//   if (typeof userId !== "string") {
-//     res.status(400).json({ error: '"userId" must be a string' });
-//   } else if (typeof name !== "string") {
-//     res.status(400).json({ error: '"name" must be a string' });
-//   }
+    res.status(200).json({
+      success: true,
+      data: userIds,
+    });
+  } catch (error) {
+    console.error("Error fetching user IDs:", error); // Log the error for debugging
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve user IDs",
+      error: error.message,
+    });
+  }
+});
 
-//   const params = {
-//     TableName: USERS_TABLE,
-//     Item: { userId, name },
-//   };
-
-//   try {
-//     const command = new PutCommand(params);
-//     await docClient.send(command);
-//     res.json({ userId, name });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "Could not create user" });
-//   }
-// });
-
-// app.use((req, res, next) => {
-//   return res.status(404).json({
-//     error: "Not Found",
-//   });
-// });
-
-exports.handler = serverless(app);
+// Export the Express app wrapped for serverless
+module.exports.handler = serverless(app); // Change this line to use serverless-http
