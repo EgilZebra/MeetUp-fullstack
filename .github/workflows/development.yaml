@@ -6,7 +6,7 @@ on:
       - dev-deploy
 
 env: 
-  VITE_API_URL: 
+  VITE_API_URL: hey
 
 jobs:
   build:
