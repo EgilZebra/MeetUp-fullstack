@@ -27,7 +27,7 @@ Backend-response:
 table: env:TABLE_NAME_USERS (users)
   key: userId (string)
   email (string)
-  password (string)
+  hashedpassword (string)
   firstname (string)
   lastname (string)
 
