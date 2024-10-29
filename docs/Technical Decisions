@@ -1,5 +1,12 @@
 ---
 
+## General
+
+- **CSS**: not prioritized, basic for the win.
+- **Security**: JWT-tokens för inlogg, spara i backend, hashade
+
+---
+
 ## Technology Stack
 
 - **Frontend**: React (with Vite), JavaScript (not TypeScript)
