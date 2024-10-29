@@ -14,8 +14,7 @@ const router = createBrowserRouter(
     >
       <Route path="/" element={<LandingPage/>} />
     </Route>
-), 
-// { basename: '/Meetup-fullstack' }
+  )
 )
 
 function App() {
