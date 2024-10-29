@@ -3,7 +3,7 @@ name: Deploy MeetUp App
 on:
   push:
     branches:
-      - dev-deploy
+      - dev
 
 env: 
   VITE_API_URL: hey

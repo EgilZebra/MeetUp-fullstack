@@ -1,0 +1,30 @@
+name: Deploy MeetUp App
+
+on:
+  push:
+    branches:
+      - dev-deploy
+
+env: 
+  VITE_API_URL: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-tokens: write
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-north-1
+
+    - name: Deploy static site to S3 bucket
+      run: aws s3 sync ./public/ s3://meetup-fullstack --delete
