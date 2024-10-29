@@ -14,10 +14,10 @@
 
 Backend-response:
 { 
-   success : true | false,
-   data:  object | empty 
-   error: msg | empty
-  statusCode: number 100-999
+   success : true | false
+   data:  object | null/ undefined
+   error: msg | null/ undefined
+   statusCode: number 100-999
 } 
 
 ---
