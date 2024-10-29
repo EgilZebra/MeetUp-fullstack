@@ -3,18 +3,24 @@ const { db } = require("../services/db");
 const router = express.Router();
 require("dotenv").config();
 
-//fetch All meetups.
-//need to add only show meetups that hasnt happened yet.
-//ska denna backend-api endast vara tillgängliga för inloggade användare?
 router.get("/", async (req, res) => {
   try {
     const result = await db.scan({
       TableName: process.env.TABLE_NAME_MEETINGS,
     });
 
+    // Get the current date
+    const currentDate = new Date();
+
+    // Filter meetups where date is in the future
+    const upcomingMeetups = result.Items.filter((meetup) => {
+      const meetupDate = new Date(meetup.date);
+      return meetupDate > currentDate;
+    });
+
     res.status(200).json({
       success: true,
-      data: result.Items,
+      data: upcomingMeetups,
     });
   } catch (error) {
     console.error("Error fetching meetups:", error);
