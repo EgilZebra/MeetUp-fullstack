@@ -18,6 +18,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4 
+
+      - name: Set up environment
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "VITE_BASE=/" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/sdev" ]; then
+            echo "VITE_BASE=//MeetUp-fullstack" >> $GITHUB_ENV
+          fi
+
       - name: Install modules
         run: npm install
         working-directory: Frontend

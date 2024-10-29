@@ -16,6 +16,15 @@ jobs:
       pages: write
       id-token: write
     steps:
+
+    - name: Set up environment
+      run: |
+        if [ "${{ github.ref }}" == "refs/heads/dev-deploy" ]; then
+          echo "VITE_BASE=/" >> $GITHUB_ENV
+        elif [ "${{ github.ref }}" == "refs/heads/dev" ]; then
+          echo "VITE_BASE=//MeetUp-fullstack" >> $GITHUB_ENV
+        fi
+
     - name: Checkout
       uses: actions/checkout@v4
     - name: Install modules
