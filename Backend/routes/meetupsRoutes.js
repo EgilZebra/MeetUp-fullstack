@@ -3,6 +3,9 @@ const { db } = require("../services/db");
 const router = express.Router();
 require("dotenv").config();
 
+//fetch All meetups.
+//need to add only show meetups that hasnt happened yet.
+//ska denna backend-api endast vara tillgängliga för inloggade användare?
 router.get("/", async (req, res) => {
   try {
     const result = await db.scan({
