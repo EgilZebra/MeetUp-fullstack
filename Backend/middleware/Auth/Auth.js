@@ -1,11 +1,17 @@
-import { checkToken } from '../../utils/JWT/jwt';
-import { db } from "../../Services/db";
-import dotenv from "dotenv";
+const { checkToken } = require('../../utils/JWT/jwt');
+const { db } = require("../../services/db");
+const { GetCommand } = require('@aws-sdk/lib-dynamodb');
+const dotenv = require("dotenv");
 
 dotenv.config();
 
 const authMiddleware = async (req, res, next) => {
     const authToken = req.headers.authorization || req.headers.Authorization;
+
+    // Allow /signup and /auth/signup routes without a token
+    if (req.path === '/signup' || req.path === '/auth/signup') {
+        return next();
+    }
 
     if (!authToken) {
         return res.status(401).json({ error: 'Unauthorized without token' });
@@ -15,31 +21,33 @@ const authMiddleware = async (req, res, next) => {
         const token = authToken.replace("Bearer ", "").trim();
         const verifiedToken = checkToken(token);
 
-        if (!verifiedToken || !verifiedToken.UserId) {
+        if (!verifiedToken || !verifiedToken.userId) {
             return res.status(401).json({ error: 'Invalid token' });
         }
 
         const params = {
             TableName: process.env.TABLE_NAME_USERS,
             Key: {
-                UserId: verifiedToken.UserId
+                userId: verifiedToken.userId // Ensure this matches the attribute name in your table
             }
         };
-        const user = await db.get(params);
+
+        // Fetch the user from DynamoDB
+        const user = await db.send(new GetCommand(params));
 
         if (!user.Item) {
             return res.status(401).json({ error: 'User not found' });
         }
 
         req.user = {
-            UserId: verifiedToken.UserId,
+            userId: verifiedToken.userId,
             username: user.Item.username
         };
         next();
     } catch (error) {
-        console.log(error, "Token is not valid. Unauthorized.");
+        console.error("Token is not valid. Unauthorized.", error);
         return res.status(401).json({ error: 'Invalid or expired token' });
     }
 };
 
-export default authMiddleware;
+module.exports = authMiddleware;

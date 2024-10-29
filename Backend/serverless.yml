@@ -1,34 +1,19 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: ${env:SERVERLESS_ORG}
-# "service" is the name of this project. This will also be added to your AWS resource names.
 service: ${env:SERVERLESS_SERVICE}
-
-stages:
-  default:
-    params:
-      tableName: "users-table-${sls:stage}"
-
-build:
-  esbuild:
-    minify: true
-
-package:
-  individually: true
-
 
 provider:
   name: aws
   runtime: nodejs20.x
+  region: ${env:AWS_REGION}
   iam:
     role: ${env:AWS_ROLE}
 
 functions:
-  app:
-    handler: functions/app.handler
+  api:
+    handler: handler.handler
     events:
-      - http:
-          path: /auth/{proxy+}  # Matches all paths under /auth
-          method: any            # Handles all HTTP methods (GET, POST, etc.)
+      - httpApi:
+          path: "*"
 
 resources:
   Resources:
@@ -38,21 +23,11 @@ resources:
         AttributeDefinitions:
           - AttributeName: userId
             AttributeType: S
-          - AttributeName: username  # This attribute is for the GSI
-            AttributeType: S
         KeySchema:
           - AttributeName: userId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
         TableName: ${env:TABLE_NAME_USERS}
-        GlobalSecondaryIndexes:  # GSI defined here
-          - IndexName: Username-Index
-            KeySchema:
-              - AttributeName: username
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL  
-
     MeetingsTable:
       Type: AWS::DynamoDB::Table
       Properties:
