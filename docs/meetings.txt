@@ -6,3 +6,5 @@ Alla berättar vad de jobbar med just nu.
 Disskussion av tickets som varit under rewview.
 
 övrigt.
+
+Mellan mötena förväntas alla i teamet att reviewa tickets Under review samt jobba med en ticket i taget från GithubProjects-sidan.
