@@ -14,10 +14,10 @@
 
 Backend-response:
 { 
-   sucess : true/ false,
-   data:  {} | full 
-   error: 
-  statusCode: 202
+   success : true | false,
+   data:  object | empty 
+   error: msg | empty
+  statusCode: number 100-999
 } 
 
 ---
@@ -43,4 +43,3 @@ table: env:${env:TABLE_NAME_MEETINGS} (meetings)
 
 ---
 
-## Database Structur
