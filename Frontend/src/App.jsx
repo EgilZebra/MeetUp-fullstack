@@ -14,7 +14,7 @@ const router = createBrowserRouter(
     >
       <Route path="/" element={<LandingPage/>} />
     </Route>
-)
+  )
 )
 
 function App() {
