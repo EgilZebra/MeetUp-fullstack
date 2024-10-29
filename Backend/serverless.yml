@@ -23,10 +23,12 @@ provider:
     role: ${env:AWS_ROLE}
 
 functions:
-  api:
-    handler: handler.handler
+  app:
+    handler: functions/app.handler
     events:
-      - httpApi: "*"
+      - http:
+          path: /auth/{proxy+}  # Matches all paths under /auth
+          method: any            # Handles all HTTP methods (GET, POST, etc.)
 
 resources:
   Resources:
@@ -36,11 +38,21 @@ resources:
         AttributeDefinitions:
           - AttributeName: userId
             AttributeType: S
+          - AttributeName: username  # This attribute is for the GSI
+            AttributeType: S
         KeySchema:
           - AttributeName: userId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-        TableName:  ${env:TABLE_NAME_USERS}
+        TableName: ${env:TABLE_NAME_USERS}
+        GlobalSecondaryIndexes:  # GSI defined here
+          - IndexName: Username-Index
+            KeySchema:
+              - AttributeName: username
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL  
+
     MeetingsTable:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -51,4 +63,4 @@ resources:
           - AttributeName: MeetingId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-        TableName:  ${env:TABLE_NAME_MEETINGS}
+        TableName: ${env:TABLE_NAME_MEETINGS}
