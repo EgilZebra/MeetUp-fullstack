@@ -9,10 +9,8 @@ router.get("/", async (req, res) => {
       TableName: process.env.TABLE_NAME_MEETINGS,
     });
 
-    // Get the current date
     const currentDate = new Date();
 
-    // Filter meetups where date is in the future
     const upcomingMeetups = result.Items.filter((meetup) => {
       const meetupDate = new Date(meetup.date);
       return meetupDate > currentDate;

@@ -8,6 +8,5 @@ require("dotenv").config();
 app.use(express.json());
 
 app.use("/users", userRoutes);
-app.use("/meetups", meetupsRoutes);
 
 module.exports.handler = serverless(app);
