@@ -1,0 +1,11 @@
+---
+
+## Technology Stack
+
+- **Frontend**: React (with Vite), JavaScript (not TypeScript)
+- **Backend**: Serverless with Express
+- **Database**: DynamoDb
+- **workflow**: main => s3 bucket aws || dev => github action/ pages
+-
+
+---
