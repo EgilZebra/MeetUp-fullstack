@@ -18,6 +18,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+    - name: Install modules
+      run: npm install
+      working-directory: Frontend
+    - name: Build dist
+      run: npm run build
+      working-directory: Frontend
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
