@@ -33,5 +33,5 @@ jobs:
         aws-region: eu-north-1
 
     - name: Deploy static site to S3 bucket
-      run: aws s3 sync . s3://meetup-fullstack --delete
+      run: aws s3 sync dist/ s3://meetup-fullstack --delete
       working-directory: Frontend
