@@ -16,6 +16,9 @@
   top: 0;
   right: 0;
 }
+.userProfile-menu {
+  display: flex;
+}
 .userProfile-menu button.active {
   background-color: green;
   color: #fff;
