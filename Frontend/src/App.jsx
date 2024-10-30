@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { LandingPage } from "./pages/LandingPage";
-import UserProfile from "./pages/UserProfile";
+import Profile from "./pages/Profile";
 import "./App.css";
 
 const router = createBrowserRouter(
@@ -14,7 +14,7 @@ const router = createBrowserRouter(
     // errorElement={<ErrorPage />}
     >
       <Route path="/" element={<LandingPage />} />
-      <Route path="/profile" element={<UserProfile />} />
+      <Route path="/profile" element={<Profile />} />
     </Route>
   )
 );
