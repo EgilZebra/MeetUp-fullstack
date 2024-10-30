@@ -4,30 +4,27 @@ import MyMU from "../components/myMU/MyMU";
 import SearchMU from "../components/searchMU/SearchMU";
 import CreateMU from "../components/forms/createMU/CreateMU";
 import "./style/Profile.css";
+import axios from "axios";
 
 const UserProfile = () => {
   const [activeButton, setActiveButton] = useState("Min Profil");
   const [meetupsData, setMeetupsData] = useState([]); // State to store fetched data
 
-  // Function to fetch data from API
   const fetchMeetups = async () => {
     try {
-      const response = await fetch(
-        "https://xj9ne7lghe.execute-api.eu-north-1.amazonaws.com"
-      ); // Replace with your API URL
-      const data = await response.json();
-      setMeetupsData(data); // Set the fetched data
+      const response = await axios.get(
+        "https://xj9ne7lghe.execute-api.eu-north-1.amazonaws.com/meetups"
+      );
+      const data = response.data.data; // Access the 'data' array from the API response
+      setMeetupsData(data);
     } catch (error) {
       console.error("Error fetching meetups:", error);
     }
   };
 
-  // Trigger fetchMeetups when "Alla Meetups" is active
   useEffect(() => {
-    if (activeButton === "Alla Meetups") {
-      fetchMeetups();
-    }
-  }, [activeButton]);
+    fetchMeetups();
+  }, []);
 
   return (
     <div className="userProfile-wrapper">
@@ -67,7 +64,19 @@ const UserProfile = () => {
       <div className="userProfile-content">
         {activeButton === "Min Profil" && (
           <div className="userProfile-content__profile">
-            <MyMU />
+            <h2>API Data:</h2>
+            {meetupsData.length > 0 ? (
+              <ul>
+                {meetupsData.map((meetup) => (
+                  <li key={meetup.MeetingId}>
+                    <h3>{meetup.name}</h3>
+                    <p>Date: {meetup.date}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No meetups available.</p>
+            )}
           </div>
         )}
         {activeButton === "Sök Meetups" && (
@@ -77,7 +86,8 @@ const UserProfile = () => {
         )}
         {activeButton === "Alla Meetups" && (
           <div className="userProfile-content__listMUs">
-            <AllMU meetups={meetupsData} /> {/* Pass fetched data to AllMU */}
+            <AllMU meetupsData={meetupsData} />{" "}
+            {/* Pass fetched data to AllMU */}
           </div>
         )}
         {activeButton === "Skapa Meetup" && (

@@ -1,18 +1,17 @@
-// AllMU.js
-import React from "react";
-
-const AllMU = ({ meetups }) => {
+const AllMU = () => {
   return (
-    <div>
-      <h2>Alla Meetups</h2>
-      <ul>
-        {meetups.map((meetup, index) => (
-          <li key={index}>
-            <h3>{meetup.name}</h3> {/* Meetup name */}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <h4>Min Profil</h4>
+      <p>
+        Som en användare, vill jag ha en profil där jag kan se mina anmälda
+        meetups och tidigare meetups, så att jag kan hålla reda på min
+        meetup-historik och planera för framtida meetups.Användaren kan se en
+        "Min Profil" knapp eller länk någonstans på sidan. Användaren kan klicka
+        på "Min Profil" för att se en lista över sina anmälda och tidigare
+        meetups. Användaren kan klicka på varje meetup i listan för att se mer
+        information.
+      </p>
+    </>
   );
 };
 
