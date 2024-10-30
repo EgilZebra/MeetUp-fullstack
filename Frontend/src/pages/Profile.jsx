@@ -16,7 +16,13 @@ const UserProfile = () => {
         "https://xj9ne7lghe.execute-api.eu-north-1.amazonaws.com/meetups"
       );
       const data = response.data.data; // Access the 'data' array from the API response
-      setMeetupsData(data);
+
+      // Sort data by date, assuming 'date' is in ISO format
+      const sortedData = data.sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
+
+      setMeetupsData(sortedData);
     } catch (error) {
       console.error("Error fetching meetups:", error);
     }
@@ -64,16 +70,23 @@ const UserProfile = () => {
       <div className="userProfile-content">
         {activeButton === "Min Profil" && (
           <div className="userProfile-content__profile">
-            <h2>API Data:</h2>
             {meetupsData.length > 0 ? (
-              <ul>
-                {meetupsData.map((meetup) => (
-                  <li key={meetup.MeetingId}>
-                    <h3>{meetup.name}</h3>
-                    <p>Date: {meetup.date}</p>
-                  </li>
-                ))}
-              </ul>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {meetupsData.map((meetup) => (
+                    <tr key={meetup.MeetingId}>
+                      <td>{new Date(meetup.date).toLocaleDateString()}</td>
+                      <td>{meetup.name}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             ) : (
               <p>No meetups available.</p>
             )}
