@@ -1,16 +1,18 @@
-const AllMU = () => {
+// AllMU.js
+import React from "react";
+
+const AllMU = ({ meetups }) => {
   return (
-    <>
-      <h4>Visa Alla MUs</h4>
-      <p>
-        Som en användare, vill jag kunna se en lista över kommande meetups med
-        detaljer som tid, plats, beskrivning och värd, så att jag kan hitta
-        meetups som intresserar mig. Användaren kan se en lista över kommande
-        meetups på startsidan eller på en särskild sida. Varje meetup i listan
-        innehåller detaljer som tid, plats och värd. Användaren kan klicka på en
-        meetup för att se mer information.
-      </p>
-    </>
+    <div>
+      <h2>Alla Meetups</h2>
+      <ul>
+        {meetups.map((meetup, index) => (
+          <li key={index}>
+            <h3>{meetup.name}</h3> {/* Meetup name */}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
