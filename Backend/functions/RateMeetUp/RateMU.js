@@ -1,5 +1,5 @@
 import { UpdateCommand } from '@aws-sdk/lib-dynamodb'
-const { db } = require('../../services/db');
+// const { db } = require('../../services/db');
 
 export const RateMU = async (req, res) => {
 

@@ -19,6 +19,7 @@ package:
 provider:
   name: aws
   runtime: nodejs20.x
+  region: ${env:AWS_REGION}
   iam:
     role: ${env:AWS_ROLE}
 
