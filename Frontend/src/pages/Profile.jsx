@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AllMU from "../components/allMU/AllMU";
 import MyMU from "../components/myMU/MyMU";
 import SearchMU from "../components/searchMU/SearchMU";
+import CreateMU from "../components/forms/createMU/CreateMU";
 import "./style/Profile.css";
 
 const UserProfile = () => {
@@ -35,6 +36,12 @@ const UserProfile = () => {
         >
           Alla Meetups
         </button>
+        <button
+          className={activeButton === "Skapa Meetup" ? "active" : ""}
+          onClick={() => setActiveButton("Skapa Meetup")}
+        >
+          Skapa Meetup
+        </button>
       </div>
 
       <div className="userProfile-content">
@@ -51,6 +58,11 @@ const UserProfile = () => {
         {activeButton === "Alla Meetups" && (
           <div className="userProfile-content__listMUs">
             <AllMU />
+          </div>
+        )}
+        {activeButton === "Skapa Meetup" && (
+          <div className="userProfile-content__createMU">
+            <CreateMU />
           </div>
         )}
       </div>
