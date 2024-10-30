@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const signupRouter = require('./Functions/Account/Signup'); // Ensure the path is correct
 const loginRouter = require('./Functions/Account/Login');
 const createMeetupRouter = require('./Functions/CreateMeetup/CreateMeetup');
+/* const SearchMeetupRouter = require('./Functions/SearchMeetup/SearchMeetup'); */
 /* const authMiddleware = require('./middleware/Auth/Auth');
 const userRoutes = require("./routes/userRoutes");
 const meetupsRoutes = require("./routes/meetupsRoutes"); */
@@ -23,6 +24,7 @@ app.use(bodyParser.json()); // Middleware to parse JSON bodies
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/create-meetup', createMeetupRouter);
+/* app.use('/Search-meetups', SearchMeetupRouter); */
 /* app.use("/users", userRoutes);
 app.use("/meetups", meetupsRoutes);
  */
