@@ -71,6 +71,7 @@ const UserProfile = () => {
                     <th>Platser lediga</th>
                     <th>Anmälan</th>
                     <th>AV-Anmälan</th>
+                    <th>Info</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -100,6 +101,9 @@ const UserProfile = () => {
                           <button disabled={participant === false}>
                             {participant ? "AvAnmäl mig" : "Ej anmäld"}
                           </button>
+                        </td>
+                        <td>
+                          <button>Mer information</button>
                         </td>
                       </tr>
                     );
