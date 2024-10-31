@@ -67,23 +67,43 @@ const UserProfile = () => {
                   <tr>
                     <th>Date</th>
                     <th>Name</th>
-                    <th>Platser</th>
+                    <th>Platser tillgängliga</th>
                     <th>Platser lediga</th>
                     <th>Anmälan</th>
+                    <th>AV-Anmälan</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {meetupsData.map((meetup) => (
-                    <tr key={meetup.MeetingId}>
-                      <td>{new Date(meetup.date).toLocaleDateString()}</td>
-                      <td>{meetup.name}</td>
-                      <td>12</td>
-                      <td>12</td>
-                      <td>
-                        <button>Anmäl mig</button>
-                      </td>
-                    </tr>
-                  ))}
+                  {meetupsData.map((meetup) => {
+                    // Calculate available spots
+                    const participants = meetup.participants
+                      ? meetup.participants.split(",")
+                      : [];
+                    const availableSpots =
+                      meetup.capacity - participants.length;
+
+                    const currentUserId = "elva";
+                    const participant = participants.includes(currentUserId);
+
+                    return (
+                      <tr key={meetup.MeetingId}>
+                        <td>{new Date(meetup.date).toLocaleDateString()}</td>
+                        <td>{meetup.name}</td>
+                        <td>{meetup.capacity}</td>
+                        <td>{availableSpots}</td>
+                        <td>
+                          <button disabled={availableSpots === 0}>
+                            {availableSpots > 0 ? "Anmäl mig" : "Fullt"}
+                          </button>
+                        </td>
+                        <td>
+                          <button disabled={participant === false}>
+                            {participant ? "AvAnmäl mig" : "Ej anmäld"}
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             ) : (
