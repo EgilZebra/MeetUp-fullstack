@@ -3,12 +3,15 @@ import AllMU from "../components/allMU/AllMU";
 import MyMU from "../components/myMU/MyMU";
 import SearchMU from "../components/searchMU/SearchMU";
 import CreateMU from "../components/forms/createMU/CreateMU";
+import Overlay from "../components/overlay/Overlay";
 import "./style/Profile.css";
 import { getAPI } from "../utils/api"; // Import the getAPI function
 
 const UserProfile = () => {
   const [activeButton, setActiveButton] = useState("Min Profil");
-  const [meetupsData, setMeetupsData] = useState([]); // State to store fetched data
+  const [meetupsData, setMeetupsData] = useState([]);
+  const [selectedMeetup, setSelectedMeetup] = useState(null);
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
   const fetchMeetups = async () => {
     try {
@@ -20,8 +23,18 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    fetchMeetups(); // Call fetchMeetups on component mount
+    fetchMeetups();
   }, []);
+
+  const handleMoreInfoClick = (meetup) => {
+    setSelectedMeetup(meetup);
+    setIsOverlayOpen(true);
+  };
+
+  const closeOverlay = () => {
+    setIsOverlayOpen(false);
+    setSelectedMeetup(null);
+  };
 
   return (
     <div className="userProfile-wrapper">
@@ -33,25 +46,29 @@ const UserProfile = () => {
 
       <div className="userProfile-menu">
         <button
-          className={activeButton === "Min Profil" ? "active" : ""}
+          className={activeButton === "Min Profil" ? "userProfile-active" : ""}
           onClick={() => setActiveButton("Min Profil")}
         >
           Min Profil
         </button>
         <button
-          className={activeButton === "Sök Meetups" ? "active" : ""}
+          className={activeButton === "Sök Meetups" ? "userProfile-active" : ""}
           onClick={() => setActiveButton("Sök Meetups")}
         >
           Sök Meetups
         </button>
         <button
-          className={activeButton === "Alla Meetups" ? "active" : ""}
+          className={
+            activeButton === "Alla Meetups" ? "userProfile-active" : ""
+          }
           onClick={() => setActiveButton("Alla Meetups")}
         >
           Alla Meetups
         </button>
         <button
-          className={activeButton === "Skapa Meetup" ? "active" : ""}
+          className={
+            activeButton === "Skapa Meetup" ? "userProfile-active" : ""
+          }
           onClick={() => setActiveButton("Skapa Meetup")}
         >
           Skapa Meetup
@@ -62,7 +79,7 @@ const UserProfile = () => {
         {activeButton === "Min Profil" && (
           <div className="userProfile-content__profile">
             {meetupsData.length > 0 ? (
-              <table>
+              <table className="userProfile-table">
                 <thead>
                   <tr>
                     <th>Date</th>
@@ -76,7 +93,6 @@ const UserProfile = () => {
                 </thead>
                 <tbody>
                   {meetupsData.map((meetup) => {
-                    // Calculate available spots
                     const participants = meetup.participants
                       ? meetup.participants.split(",")
                       : [];
@@ -103,7 +119,9 @@ const UserProfile = () => {
                           </button>
                         </td>
                         <td>
-                          <button>Mer information</button>
+                          <button onClick={() => handleMoreInfoClick(meetup)}>
+                            Mer information
+                          </button>
                         </td>
                       </tr>
                     );
@@ -122,8 +140,7 @@ const UserProfile = () => {
         )}
         {activeButton === "Alla Meetups" && (
           <div className="userProfile-content__listMUs">
-            <AllMU meetupsData={meetupsData} />{" "}
-            {/* Pass fetched data to AllMU */}
+            <AllMU meetupsData={meetupsData} />
           </div>
         )}
         {activeButton === "Skapa Meetup" && (
@@ -132,6 +149,14 @@ const UserProfile = () => {
           </div>
         )}
       </div>
+
+      {isOverlayOpen && (
+        <Overlay
+          isOpen={isOverlayOpen}
+          selectedMeetup={selectedMeetup}
+          onClose={closeOverlay}
+        />
+      )}
     </div>
   );
 };
