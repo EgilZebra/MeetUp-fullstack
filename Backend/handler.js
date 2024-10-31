@@ -5,10 +5,13 @@ const signupRouter = require('./Functions/Account/Signup'); // Ensure the path i
 const loginRouter = require('./Functions/Account/Login');
 const createMeetupRouter = require('./Functions/CreateMeetup/CreateMeetup');
 const SearchMeetupRouter = require('./Functions/SearchMeetup/SearchMeetup');
-/* const authMiddleware = require('./middleware/Auth/Auth');
-const userRoutes = require("./routes/userRoutes");
-const meetupsRoutes = require("./routes/meetupsRoutes"); */
+ const authMiddleware = require('./middleware/Auth/Auth');
+
+/* const userRoutes = require("./routes/userRoutes");
+const meetupsRoutes = require("./routes/meetupsRoutes");  */
 const dotenv = require("dotenv");
+
+
 
 dotenv.config();
 
@@ -19,11 +22,11 @@ app.use(bodyParser.json()); // Middleware to parse JSON bodies
 
 // Apply authMiddleware to all routes under /auth, except /signup and /login
 /* app.use('/auth', authMiddleware); */
-
+//app.use('/api/notes', verifyToken, notes);
 // Define routes
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
-app.use('/create-meetup', createMeetupRouter);
+app.use('/create-meetup', authMiddleware, createMeetupRouter);
 app.use('/Search-meetups', SearchMeetupRouter);
 /* app.use("/users", userRoutes);
 app.use("/meetups", meetupsRoutes);
