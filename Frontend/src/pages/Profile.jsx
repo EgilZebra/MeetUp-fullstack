@@ -5,7 +5,7 @@ import SearchMU from "../components/searchMU/SearchMU";
 import CreateMU from "../components/forms/createMU/CreateMU";
 import Overlay from "../components/overlay/Overlay";
 import "./style/Profile.css";
-import { getAPI } from "../utils/api"; // Import the getAPI function
+import { getAPI } from "../utils/api";
 
 const UserProfile = () => {
   const [activeButton, setActiveButton] = useState("Min Profil");

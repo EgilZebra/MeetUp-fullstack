@@ -1,13 +1,12 @@
-// src/components/Overlay.js
 import React from "react";
-import "./Overlay.css"; // Add styles for your overlay if needed
+import "./Overlay.css";
 
 const Overlay = ({ isOpen, selectedMeetup, onClose }) => {
-  if (!isOpen) return null; // Don't render if not open
+  if (!isOpen) return null;
 
   return (
-    <div className="overlay">
-      <div className="overlay-content">
+    <div className="selectedMU-overlay">
+      <div className="selectedMU-overlay-content">
         <h2>{selectedMeetup.name}</h2>
         <p>
           <strong>Date:</strong>{" "}

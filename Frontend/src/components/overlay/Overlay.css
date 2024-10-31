@@ -1,42 +1,40 @@
-/* overlay.css */
-
-.overlay {
-  position: fixed; /* Fixes the overlay to the viewport */
-  top: 0; /* Positions it at the top */
-  left: 0; /* Positions it at the left */
-  right: 0; /* Stretches to the right */
-  bottom: 0; /* Stretches to the bottom */
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  display: flex; /* Enables flexbox for centering */
-  justify-content: center; /* Centers content horizontally */
-  align-items: center; /* Centers content vertically */
-  z-index: 1000; /* Ensures it sits above other content */
+.selectedMU-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.overlay-content {
-  background-color: white; /* Background for the content box */
-  padding: 20px; /* Adds space inside the content box */
-  border-radius: 8px; /* Rounds the corners of the content box */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow effect */
-  width: 80%; /* Responsive width */
-  max-width: 500px; /* Maximum width for larger screens */
-  text-align: center; /* Centers text inside the content box */
+.selectedMU-overlay-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
 }
 
-.overlay-content h2 {
-  margin-top: 0; /* Removes top margin for h2 */
+.selectedMU-overlay-content h2 {
+  margin-top: 0;
 }
 
-.overlay-content button {
-  background-color: #007bff; /* Bootstrap primary color */
-  color: white; /* White text color */
-  border: none; /* No border */
-  border-radius: 4px; /* Rounded corners for button */
-  padding: 10px 20px; /* Padding for button */
-  cursor: pointer; /* Cursor change on hover */
-  transition: background-color 0.3s; /* Smooth transition for hover */
+.selectedMU-overlay-content button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.overlay-content button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+.selectedMU-overlay-content button:hover {
+  background-color: #0056b3;
 }
