@@ -4,7 +4,7 @@ import MyMU from "../components/myMU/MyMU";
 import SearchMU from "../components/searchMU/SearchMU";
 import CreateMU from "../components/forms/createMU/CreateMU";
 import "./style/Profile.css";
-import axios from "axios";
+import { getAPI } from "../utils/api"; // Import the getAPI function
 
 const UserProfile = () => {
   const [activeButton, setActiveButton] = useState("Min Profil");
@@ -12,24 +12,15 @@ const UserProfile = () => {
 
   const fetchMeetups = async () => {
     try {
-      const response = await axios.get(
-        "https://xj9ne7lghe.execute-api.eu-north-1.amazonaws.com/meetups"
-      );
-      const data = response.data.data; // Access the 'data' array from the API response
-
-      // Sort data by date, assuming 'date' is in ISO format
-      const sortedData = data.sort(
-        (a, b) => new Date(b.date) - new Date(a.date)
-      );
-
-      setMeetupsData(sortedData);
+      const apiData = await getAPI();
+      setMeetupsData(apiData);
     } catch (error) {
       console.error("Error fetching meetups:", error);
     }
   };
 
   useEffect(() => {
-    fetchMeetups();
+    fetchMeetups(); // Call fetchMeetups on component mount
   }, []);
 
   return (
@@ -76,6 +67,9 @@ const UserProfile = () => {
                   <tr>
                     <th>Date</th>
                     <th>Name</th>
+                    <th>Platser</th>
+                    <th>Platser lediga</th>
+                    <th>Anmälan</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -83,6 +77,11 @@ const UserProfile = () => {
                     <tr key={meetup.MeetingId}>
                       <td>{new Date(meetup.date).toLocaleDateString()}</td>
                       <td>{meetup.name}</td>
+                      <td>12</td>
+                      <td>12</td>
+                      <td>
+                        <button>Anmäl mig</button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
