@@ -1,11 +1,11 @@
-/* const express = require('express');
+const express = require('express');
 const { sendResponse, sendError } = require('../../Response/response');
 const { db } = require('../../services/db');
 const { ScanCommand } = require('@aws-sdk/lib-dynamodb');
 
 const router = express.Router();
 
-router.get('/searchMeetup', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const Search = req.query.Search;
 
@@ -48,4 +48,4 @@ router.get('/searchMeetup', async (req, res) => {
   }
 });
 
-module.exports = router; */
+module.exports = router;
