@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import AllMU from "../components/allMU/AllMU";
 import MyMU from "../components/myMU/MyMU";
 import SearchMU from "../components/searchMU/SearchMU";
 import CreateMU from "../components/forms/createMU/CreateMU";
@@ -8,7 +7,7 @@ import "./style/Profile.css";
 import { getAPI } from "../utils/api";
 
 const UserProfile = () => {
-  const [activeButton, setActiveButton] = useState("Min Profil");
+  const [activeButton, setActiveButton] = useState("Alla Meetups");
   const [meetupsData, setMeetupsData] = useState([]);
   const [selectedMeetup, setSelectedMeetup] = useState(null);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
@@ -78,6 +77,16 @@ const UserProfile = () => {
       <div className="userProfile-content">
         {activeButton === "Min Profil" && (
           <div className="userProfile-content__profile">
+            <MyMU />
+          </div>
+        )}
+        {activeButton === "Sök Meetups" && (
+          <div className="userProfile-content__searchMUs">
+            <SearchMU />
+          </div>
+        )}
+        {activeButton === "Alla Meetups" && (
+          <div className="userProfile-content__listMUs">
             {meetupsData.length > 0 ? (
               <table className="userProfile-table">
                 <thead>
@@ -109,8 +118,16 @@ const UserProfile = () => {
                         <td>{meetup.capacity}</td>
                         <td>{availableSpots}</td>
                         <td>
-                          <button disabled={availableSpots === 0}>
-                            {availableSpots > 0 ? "Anmäl mig" : "Fullt"}
+                          <button
+                            disabled={
+                              availableSpots === 0 || participant === true
+                            }
+                          >
+                            {participant
+                              ? "Du är anmäld"
+                              : availableSpots > 0
+                              ? "Anmäl mig"
+                              : "Fullt"}
                           </button>
                         </td>
                         <td>
@@ -131,16 +148,6 @@ const UserProfile = () => {
             ) : (
               <p>No meetups available.</p>
             )}
-          </div>
-        )}
-        {activeButton === "Sök Meetups" && (
-          <div className="userProfile-content__searchMUs">
-            <SearchMU />
-          </div>
-        )}
-        {activeButton === "Alla Meetups" && (
-          <div className="userProfile-content__listMUs">
-            <AllMU meetupsData={meetupsData} />
           </div>
         )}
         {activeButton === "Skapa Meetup" && (
