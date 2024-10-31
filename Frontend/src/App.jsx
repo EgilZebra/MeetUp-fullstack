@@ -1,23 +1,26 @@
-import {
-  Route,
-  createBrowserRouter,
-  createRoutesFromElements,
-  RouterProvider,
-} from "react-router-dom";
-import { LandingPage } from "./pages/LandingPage";
+
+import { 
+  Route, 
+  createBrowserRouter, 
+  createRoutesFromElements, 
+  RouterProvider 
+} from "react-router-dom"
+import { LandingPage } from "./pages/LandingPage"
+import { ErrorPage } from "./pages/ErrorPage"
+import './App.css'
+import { RateMU } from "./components/RateMu/RateMU"
 import Profile from "./pages/Profile";
-import "./App.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route
-    // errorElement={<ErrorPage />}
-    >
-      <Route path="/" element={<LandingPage />} />
+    <Route errorElement={<ErrorPage />} >
+      <Route path="/" element={<LandingPage/>} />
+      <Route path="/comment" element={<RateMU/>} />
       <Route path="/profile" element={<Profile />} />
     </Route>
   )
-);
+)
+
 
 function App() {
   return (
