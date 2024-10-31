@@ -1,20 +1,5 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: ${env:SERVERLESS_ORG}
-# "service" is the name of this project. This will also be added to your AWS resource names.
 service: ${env:SERVERLESS_SERVICE}
-
-stages:
-  default:
-    params:
-      tableName: "users-table-${sls:stage}"
-
-build:
-  esbuild:
-    minify: true
-
-package:
-  individually: true
-
 
 provider:
   name: aws
@@ -27,7 +12,8 @@ functions:
   api:
     handler: handler.handler
     events:
-      - httpApi: "*"
+      - httpApi:
+          path: "*"
 
 resources:
   Resources:
@@ -41,7 +27,7 @@ resources:
           - AttributeName: userId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-        TableName:  ${env:TABLE_NAME_USERS}
+        TableName: ${env:TABLE_NAME_USERS}
     MeetingsTable:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -52,4 +38,4 @@ resources:
           - AttributeName: MeetingId
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-        TableName:  ${env:TABLE_NAME_MEETINGS}
+        TableName: ${env:TABLE_NAME_MEETINGS}
