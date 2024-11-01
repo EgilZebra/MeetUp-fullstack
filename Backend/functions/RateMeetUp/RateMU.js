@@ -1,7 +1,7 @@
-import { UpdateCommand } from '@aws-sdk/lib-dynamodb'
-// const { db } = require('../../services/db');
+const { UpdateCommand } = require('@aws-sdk/lib-dynamodb')
+const { db } = require('../../services/db');
 
-export const RateMU = async (req, res) => {
+const RateMU = async (req, res) => {
 
     const reqBody = req.body;
     if ( !reqBody.userId ) {
@@ -36,7 +36,7 @@ export const RateMU = async (req, res) => {
     const UpdateParams = {
         TableName: process.env.TABLE_NAME_MEETINGS,
         Key: {
-            'meetingId': reqBody.meetingId
+            'MeetingId': reqBody.meetingId
         },
         UpdateExpression: 'set comments = list_append(if_not_exists(comments, :emptyList), :new_comment)',
         ExpressionAttributeValues: {
@@ -60,3 +60,4 @@ export const RateMU = async (req, res) => {
         })
     }
 }
+module.exports = { RateMU }
