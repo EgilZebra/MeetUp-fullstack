@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
-    username: '',
-    
-    password: '',
-    confirmPassword: ''
+    username: "",
+
+    password: "",
+    confirmPassword: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -16,33 +16,36 @@ const SignupForm = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
   // Handle submit
   const handleSubmitSignup = async () => {
-    const payLoad = { 
-      username: formData.username, 
-       
-      password: formData.password 
+    const payLoad = {
+      username: formData.username,
+
+      password: formData.password,
     };
     try {
-      const response = await fetch('https://glgh7httw0.execute-api.eu-north-1.amazonaws.com/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payLoad),
-      });
+      const response = await fetch(
+        "https://glgh7httw0.execute-api.eu-north-1.amazonaws.com/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payLoad),
+        }
+      );
 
       if (response.ok) {
-        toast.success('Account created successfully');
+        toast.success("Account created successfully");
         setTimeout(() => {
-          window.location.href = 'http://localhost:5173/Login2';
-        },1000);
+          window.location.href = "http://localhost:5173/Login2";
+        }, 1000);
       } else {
-        toast.error('Error creating account');
+        toast.error("Error creating account");
       }
     } catch (error) {
       console.error(error);
@@ -52,30 +55,28 @@ const SignupForm = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.username.trim()) {
-      newErrors.username = 'Username is required';
+      newErrors.username = "Username is required";
     }
-    
-    
-    
+
     if (!formData.password) {
-      newErrors.password = 'Password is required';
+      newErrors.password = "Password is required";
     } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+      newErrors.password = "Password must be at least 6 characters";
     }
-    
+
     if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
+      newErrors.confirmPassword = "Passwords do not match";
     }
-    
+
     return newErrors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = validateForm();
-    
+
     if (Object.keys(newErrors).length === 0) {
       handleSubmitSignup(); // Call the signup function if validation passes
     } else {
@@ -96,12 +97,12 @@ const SignupForm = () => {
               type="text"
               value={formData.username}
               onChange={handleChange}
-              className={errors.username ? 'error' : ''}
+              className={errors.username ? "error" : ""}
             />
-            {errors.username && <span className="error-message">{errors.username}</span>}
+            {errors.username && (
+              <span className="error-message">{errors.username}</span>
+            )}
           </div>
-
-         
 
           <div className="form-group">
             <label htmlFor="password">Password</label>
@@ -111,9 +112,11 @@ const SignupForm = () => {
               type="password"
               value={formData.password}
               onChange={handleChange}
-              className={errors.password ? 'error' : ''}
+              className={errors.password ? "error" : ""}
             />
-            {errors.password && <span className="error-message">{errors.password}</span>}
+            {errors.password && (
+              <span className="error-message">{errors.password}</span>
+            )}
           </div>
 
           <div className="form-group">
@@ -124,24 +127,30 @@ const SignupForm = () => {
               type="password"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className={errors.confirmPassword ? 'error' : ''}
+              className={errors.confirmPassword ? "error" : ""}
             />
             {errors.confirmPassword && (
               <span className="error-message">{errors.confirmPassword}</span>
             )}
           </div>
 
-          <button type="submit"> registrera</button>
+          <button type="submit"> register</button>
           <div>
-  <p>Already have an account?</p>
-  <button type="button" variant="outline" onClick={() => window.location.href = 'http://localhost:5173/Login2'}>
-    Login
-  </button>
-</div>
+            <p>Already have an account?</p>
+            <button
+              type="button"
+              variant="outline"
+              onClick={() =>
+                (window.location.href = "http://localhost:5173/Login2")
+              }
+            >
+              Login
+            </button>
+          </div>
         </form>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .form-container {
           display: flex;
           min-height: 100vh;

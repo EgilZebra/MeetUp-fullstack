@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import AllMU from "../components/allMU/AllMU";
 import MyMU from "../components/myMU/MyMU";
 import SearchMU from "../components/searchMU/SearchMU";
@@ -25,14 +25,14 @@ const UserProfile = () => {
         </button>
 
         <button
-  className={activeButton === "Sök Meetups" ? "active" : ""}
-  onClick={() => {
-    setActiveButton("Sök Meetups");
-    window.location.href = 'http://localhost:5173/search';
-  }}
->
-  Sök Meetups
-</button>
+          className={activeButton === "Sök Meetups" ? "active" : ""}
+          onClick={() => {
+            setActiveButton("Sök Meetups");
+            window.location.href = "http://localhost:5173/search";
+          }}
+        >
+          Sök Meetups
+        </button>
 
         <button
           className={activeButton === "Alla Meetups" ? "active" : ""}
@@ -41,15 +41,14 @@ const UserProfile = () => {
           Alla Meetups
         </button>
         <button
-  className={activeButton === "Skapa Meetup" ? "active" : ""}
-  onClick={() => {
-    setActiveButton("Skapa Meetup");
-    window.location.href = 'http://localhost:5173/CreateMeet'; // Uncomment if navigation is needed
-  }}
->
-  Skapa Meetup
-</button>
-
+          className={activeButton === "Skapa Meetup" ? "active" : ""}
+          onClick={() => {
+            setActiveButton("Skapa Meetup");
+            window.location.href = "http://localhost:5173/CreateMeet"; // Uncomment if navigation is needed
+          }}
+        >
+          Skapa Meetup
+        </button>
       </div>
 
       <div className="userProfile-content">
