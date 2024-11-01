@@ -1,7 +1,1 @@
-TABLE_NAME_MEETINGS=
-TABLE_NAME_USERS=
-SERVERLESS_ORG=
-SERVERLESS_SERVICE=
-AWS_REGION=
-AWS_ROLE=
-JWT_SECRET=
+API_URL_BASE = "https://xj9ne7lghe.execute-api.eu-north-1.amazonaws.com"
