@@ -8,9 +8,7 @@ const LoginForm = () => {
   const GoTo = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
-    
     password: '',
-    confirmPassword: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -27,9 +25,10 @@ const LoginForm = () => {
   const handleSubmitLogin = async () => {
     const payLoad = { 
       username: formData.username, 
-      
       password: formData.password 
     };
+    console.log("Payload to send:", payLoad);
+    
     try {
       const response = await fetch(`${API_URL_BASE}/login`, {
         method: 'POST',
@@ -39,17 +38,23 @@ const LoginForm = () => {
         body: JSON.stringify(payLoad),
       });
 
+      console.log("Response status:", response.status);
+      
       if (response.ok) {
-        toast.success('Account Login successfull');
+        const data = await response.json(); // Get the response data
+        console.log("Login successful, received data:", data);
+        localStorage.setItem('token', data.token, data.username ); // Store token in localStorage
+        toast.success('Account Login successful');
         setTimeout(() => {
-          GoTo('/profile');
+         GoTo('/profile');
         },1000);
       } else {
         toast.error('Error Login account');
         console.log(response.error)
+
       }
     } catch (error) {
-      console.error(error);
+      console.error("Caught error:", error);
       toast.error("An error occurred. Please try again.");
     }
   };
@@ -61,27 +66,21 @@ const LoginForm = () => {
       newErrors.username = 'Username is required';
     }
     
-    
-    
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (formData.password.length < 3) {
       newErrors.password = 'Password must be at least 3 characters';
     }
     
-    /* if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
-    } */
-    
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = validateForm();
     
     if (Object.keys(newErrors).length === 0) {
-      handleSubmitLogin(); // Call the signup function if validation passes
+      await handleSubmitLogin(); // Await the promise
     } else {
       setErrors(newErrors);
     }
@@ -105,8 +104,6 @@ const LoginForm = () => {
             {errors.username && <span className="error-message">{errors.username}</span>}
           </div>
 
-         
-
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -120,28 +117,15 @@ const LoginForm = () => {
             {errors.password && <span className="error-message">{errors.password}</span>}
           </div>
 
-          {/* <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className={errors.confirmPassword ? 'error' : ''}
-            />
-            {errors.confirmPassword && (
-              <span className="error-message">{errors.confirmPassword}</span>
-            )}
-          </div> */}
-
           <button type="submit">Login</button>
           <div>
+
   <p>Already have an account?</p>
   <button type="button" variant="outline" onClick={() => GoTo('/signup2')}>
     Sign up Here
   </button>
 </div>
+
 
         </form>
       </div>
