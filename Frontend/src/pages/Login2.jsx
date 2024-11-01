@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const SignupForm = () => {
+const LoginForm = () => {
   const [formData, setFormData] = useState({
     username: '',
-    email: '',
+    
     password: '',
     confirmPassword: ''
   });
@@ -21,14 +21,14 @@ const SignupForm = () => {
   };
 
   // Handle submit
-  const handleSubmitSignup = async () => {
+  const handleSubmitLogin = async () => {
     const payLoad = { 
       username: formData.username, 
-      email: formData.email, 
+      
       password: formData.password 
     };
     try {
-      const response = await fetch('https://glgh7httw0.execute-api.eu-north-1.amazonaws.com/signup', {
+      const response = await fetch('https://glgh7httw0.execute-api.eu-north-1.amazonaws.com/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,12 +37,12 @@ const SignupForm = () => {
       });
 
       if (response.ok) {
-        toast.success('Account created successfully');
+        toast.success('Account Login successfull');
         setTimeout(() => {
-          window.location.href = 'http://localhost:5173/Login2';
+          window.location.href = 'http://localhost:5173/profile';
         },1000);
       } else {
-        toast.error('Error creating account');
+        toast.error('Error Login account');
       }
     } catch (error) {
       console.error(error);
@@ -61,13 +61,13 @@ const SignupForm = () => {
     
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+    } else if (formData.password.length < 3) {
+      newErrors.password = 'Password must be at least 3 characters';
     }
     
-    if (formData.password !== formData.confirmPassword) {
+    /* if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
-    }
+    } */
     
     return newErrors;
   };
@@ -77,7 +77,7 @@ const SignupForm = () => {
     const newErrors = validateForm();
     
     if (Object.keys(newErrors).length === 0) {
-      handleSubmitSignup(); // Call the signup function if validation passes
+      handleSubmitLogin(); // Call the signup function if validation passes
     } else {
       setErrors(newErrors);
     }
@@ -86,7 +86,7 @@ const SignupForm = () => {
   return (
     <div className="form-container">
       <div className="form-card">
-        <h2>Sign Up</h2>
+        <h2>Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
@@ -116,7 +116,7 @@ const SignupForm = () => {
             {errors.password && <span className="error-message">{errors.password}</span>}
           </div>
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input
               id="confirmPassword"
@@ -129,15 +129,16 @@ const SignupForm = () => {
             {errors.confirmPassword && (
               <span className="error-message">{errors.confirmPassword}</span>
             )}
-          </div>
+          </div> */}
 
-          <button type="submit">Sign Up</button>
+          <button type="submit">Login</button>
           <div>
   <p>Already have an account?</p>
-  <button type="button" variant="outline" onClick={() => window.location.href = 'http://localhost:5173/Login2'}>
-    Login
+  <button type="button" variant="outline" onClick={() => window.location.href = 'http://localhost:5173/signup2'}>
+    Sign up Here
   </button>
 </div>
+
         </form>
       </div>
 
@@ -229,4 +230,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default LoginForm;
