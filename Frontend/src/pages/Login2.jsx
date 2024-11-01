@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+require('dotenv').config();
 
 const LoginForm = () => {
   const GoTo = useNavigate();
@@ -30,7 +31,7 @@ const LoginForm = () => {
       password: formData.password 
     };
     try {
-      const response = await fetch(`https://8zkk96ehna.execute-api.eu-north-1.amazonaws.com/login`, {
+      const response = await fetch(`${process.env.VITE_API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
