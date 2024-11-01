@@ -30,7 +30,7 @@ const LoginForm = () => {
       password: formData.password 
     };
     try {
-      const response = await fetch(`${process.env.VITE_API_URL}/login`, {
+      const response = await fetch(`https://8zkk96ehna.execute-api.eu-north-1.amazonaws.com/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
