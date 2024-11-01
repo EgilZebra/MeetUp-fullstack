@@ -28,7 +28,7 @@ const UserProfile = () => {
   className={activeButton === "Sök Meetups" ? "active" : ""}
   onClick={() => {
     setActiveButton("Sök Meetups");
-    window.location.href = 'http://localhost:5173/signup2';
+    window.location.href = 'http://localhost:5173/search';
   }}
 >
   Sök Meetups
