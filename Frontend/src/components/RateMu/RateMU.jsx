@@ -1,8 +1,9 @@
 import { useState } from "react";
 
 
-export const RateMU = ( MeetingId, userId ) => {
+export const RateMU = ( MeetingId ) => {
 
+    const userId = localStorage.getItem(userId);
     const SendComment = async() => {
         try {
             const response = await fetch((`${import.meta.env.VITE_API_URL}/comment`), {

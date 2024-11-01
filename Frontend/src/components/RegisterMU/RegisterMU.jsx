@@ -1,5 +1,6 @@
-export const RegisterMU = ( username, MeetingId ) => {
+export const RegisterMU = ( MeetingId ) => {
 
+    const username = localStorage.getItem(username);
     const RegisterToMu = async() => {
         try {
             const response = await fetch((`${import.meta.env.VITE_API_URL}/register`), {
