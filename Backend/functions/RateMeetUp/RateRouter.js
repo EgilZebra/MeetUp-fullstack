@@ -1,7 +1,7 @@
 const express = require('express');
-import { RateMU } from  './RateMU';
+const { RateMU } = require('./RateMU');
 const route = express.Router();
 
-route.post('/comment', RateMU);
+route.post('/', RateMU);
 
 module.exports = route

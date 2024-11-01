@@ -7,20 +7,6 @@ provider:
   region: ${env:AWS_REGION}
   iam:
     role: ${env:AWS_ROLE}
-  httpApi:
-    cors:
-      allowedOrigins:
-        - 'http://localhost:5173' # Add your frontend URL here
-      allowedMethods:
-        - OPTIONS
-        - GET
-        - POST
-        - PUT
-        - DELETE
-        - PATCH
-      allowedHeaders:
-        - Content-Type
-        - Authorization
 
 functions:
   api:
@@ -28,6 +14,7 @@ functions:
     events:
       - httpApi:
           path: "*"
+          method: "*"
 
 resources:
   Resources:
