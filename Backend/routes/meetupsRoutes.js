@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     currentDate.setHours(0, 0, 0, 0);
 
     const upcomingMeetups = result.Items.filter((meetup) => {
-      const meetupDate = new Date(meetup.date);
+      const meetupDate = new Date(meetup.starttime);
       meetupDate.setHours(0, 0, 0, 0);
       return meetupDate >= currentDate;
     });
