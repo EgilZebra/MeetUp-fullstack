@@ -1,4 +1,3 @@
-import { useState } from "react";
 import AllMU from "../components/Allmu/AllMU";
 import MyMU from "../components/myMU/MyMU";
 import SearchMU from "../components/searchMU/SearchMU";
@@ -68,7 +67,7 @@ const profile = () => {
             setActiveButton("Sök Meetups");
             GoTo('/search');
            }
-
+          }
         >
           Sök Meetups
         </button>
