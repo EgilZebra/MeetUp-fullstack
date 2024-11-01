@@ -41,11 +41,15 @@ const UserProfile = () => {
           Alla Meetups
         </button>
         <button
-          className={activeButton === "Skapa Meetup" ? "active" : ""}
-          onClick={() => setActiveButton("Skapa Meetup")}
-        >
-          Skapa Meetup
-        </button>
+  className={activeButton === "Skapa Meetup" ? "active" : ""}
+  onClick={() => {
+    setActiveButton("Skapa Meetup");
+    window.location.href = 'http://localhost:5173/CreateMeet'; // Uncomment if navigation is needed
+  }}
+>
+  Skapa Meetup
+</button>
+
       </div>
 
       <div className="userProfile-content">
