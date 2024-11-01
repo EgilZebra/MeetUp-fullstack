@@ -6,6 +6,7 @@ config();
 
 export default defineConfig({
   plugins: [react()],
+  base: process.env.VITE_BASE,
   define: {
     'process.env': process.env
   },
