@@ -4,11 +4,11 @@ import Home from "./pages/Home";
 import Login from "./pages/Login"; // Import the Login component
 import Signup from "./pages/Signup";
 import Signup2 from "./pages/Signup2";
-import { LandingPage } from "./pages/LandingPage"
 import { ErrorPage } from "./pages/ErrorPage"
 import { RateMU } from "./components/RateMu/RateMU"
 import './App.css';
 import "@/styles/globals.css"; 
+import { RegisterMU } from "./components/RegisterMU/RegisterMU";
 
 
 
@@ -20,6 +20,7 @@ const router = createBrowserRouter(
       <Route path="/Signup" element={<Signup />} />
       <Route path="/Signup2" element={<Signup2 />} />
          <Route path="/comment" element={<RateMU/>} />
+      <Route path='/register' element={<RegisterMU />} />
     </Route>
   )
 );
