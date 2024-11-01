@@ -41,13 +41,13 @@ try {
             createdAt: new Date().toISOString(),
         },
         
-      ConditionExpression: 'attribute_not_exists(id)',
+      ConditionExpression: 'attribute_not_exists(MeetingId)',
     };
     
-const result  = await db.send(new PutCommand(putParams));
+ await db.send(new PutCommand(putParams));
 
     // Return a success response
-    return sendResponse(res, 200,  { success: true, message: 'Meeting created successfully' });
+    return sendResponse(res, 201,  { success: true, message: 'Meeting created successfully' });
 } catch (error) {
     // Return an error response
     return sendError(res, 500, { success: false, error: error.message });

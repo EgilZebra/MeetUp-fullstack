@@ -22,13 +22,13 @@ provider:
         - Content-Type
         - Authorization
 
+
 functions:
   api:
     handler: handler.handler
     events:
       - httpApi:
           path: "*"
-
 resources:
   Resources:
     UsersTable:
