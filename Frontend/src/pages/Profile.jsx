@@ -15,7 +15,7 @@ const UserProfile = () => {
       <div className="userProfile-personalInfo">
         <h1>username</h1>
         <p>eventuell lägga till övrig personalInfo</p>
-        <button className="userProfile-personalInfo__logout" onClick={() => GoTo('/Login2')}>Logga ut</button>
+        <button className="userProfile-personalInfo__logout" onClick={() => {GoTo('/Login2')}}>Logga ut</button>
       </div>
 
       <div className="userProfile-menu">
