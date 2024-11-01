@@ -4,8 +4,10 @@ import MyMU from "../components/myMU/MyMU";
 import SearchMU from "../components/searchMU/SearchMU";
 import CreateMU from "../components/forms/createMU/CreateMU";
 import "./style/Profile.css";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
+  const GoTo = useNavigate(); 
   const [activeButton, setActiveButton] = useState("Min Profil");
 
   return (
@@ -28,7 +30,7 @@ const UserProfile = () => {
           className={activeButton === "Sök Meetups" ? "active" : ""}
           onClick={() => {
             setActiveButton("Sök Meetups");
-            window.location.href = "http://localhost:5173/search";
+            GoTo('/search');
           }}
         >
           Sök Meetups
@@ -44,7 +46,7 @@ const UserProfile = () => {
           className={activeButton === "Skapa Meetup" ? "active" : ""}
           onClick={() => {
             setActiveButton("Skapa Meetup");
-            window.location.href = "http://localhost:5173/CreateMeet"; // Uncomment if navigation is needed
+            GoTo('/CreateMeet'); // Uncomment if navigation is needed
           }}
         >
           Skapa Meetup
