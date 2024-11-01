@@ -1,5 +1,3 @@
-
-
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
 import Signup2 from "./pages/Signup2";
 import Login2 from "./pages/Login2";
@@ -11,8 +9,6 @@ import { RateMU } from "./components/RateMu/RateMU"
 import { RegisterMU } from "./components/RegisterMU/RegisterMU";
 import './App.css';
 import "@/styles/globals.css"; 
-
-
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +25,6 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  
   return <RouterProvider router={router} />;
 }
 

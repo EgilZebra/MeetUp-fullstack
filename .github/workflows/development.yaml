@@ -23,7 +23,7 @@ jobs:
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
             echo "VITE_BASE=/" >> $GITHUB_ENV
-          elif [ "${{ github.ref }}" == "refs/heads/dev" ]; then
+          elif [ "${{ github.ref }}" == "refs/heads/pages-updater" ]; then
             echo "VITE_BASE=/MeetUp-fullstack" >> $GITHUB_ENV
           fi
 
