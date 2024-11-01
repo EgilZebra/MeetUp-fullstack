@@ -73,7 +73,10 @@ const profile = () => {
         </button>
         <button
           className={activeButton === "Alla Meetups" ? "profile--active" : ""}
-          onClick={() => setActiveButton("Alla Meetups")}
+          onClick={() => {
+            setActiveButton("Alla Meetups");
+            // GoTo('/AllMU');
+        }}
         >
           Alla Meetups
         </button>
@@ -82,7 +85,7 @@ const profile = () => {
           onClick={() => {
             setActiveButton("Skapa Meetup");
             GoTo('/CreateMeet');
-          }
+          }}
         >
           Skapa Meetup
         </button>
