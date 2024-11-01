@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
+  const GoTo = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
 
@@ -29,7 +31,7 @@ const SignupForm = () => {
     };
     try {
       const response = await fetch(
-        "https://glgh7httw0.execute-api.eu-north-1.amazonaws.com/signup",
+        `${process.env.VITE_API_URL}/signup`,
         {
           method: "POST",
           headers: {
@@ -42,7 +44,7 @@ const SignupForm = () => {
       if (response.ok) {
         toast.success("Account created successfully");
         setTimeout(() => {
-          window.location.href = "http://localhost:5173/Login2";
+          GoTo('/Login2');
         }, 1000);
       } else {
         toast.error("Error creating account");
@@ -141,7 +143,7 @@ const SignupForm = () => {
               type="button"
               variant="outline"
               onClick={() =>
-                (window.location.href = "http://localhost:5173/Login2")
+                GoTo('/Login2')
               }
             >
               Login

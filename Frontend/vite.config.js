@@ -6,12 +6,13 @@ config();
 
 export default defineConfig({
   plugins: [react()],
+  base: process.env.VITE_BASE,
   define: {
     'process.env': process.env
   },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-    }
-  }
+    },
+  },
 })

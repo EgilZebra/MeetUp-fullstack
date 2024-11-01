@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SearchBar from "@/components/ui/SearchBar";
+import SearchBar from "@/components/ui/Searchbar";
 
 function Search() {
   const [results, setResults] = useState([]); // State to store search results

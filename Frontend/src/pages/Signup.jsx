@@ -28,7 +28,7 @@ const SignupForm = () => {
       password: formData.password 
     };
     try {
-      const response = await fetch('https://glgh7httw0.execute-api.eu-north-1.amazonaws.com/signup', {
+      const response = await fetch(`${process.env.VITE_API_URL}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ const SignupForm = () => {
       if (response.ok) {
         toast.success('Account created successfully');
         setTimeout(() => {
-          window.location.href = 'http://localhost:5173/Login2';
+          window.location.href = `https://egilzebra.github.io/MeetUp-fullstack/Login2`;
         },1000);
       } else {
         toast.error('Error creating account');
@@ -134,7 +134,7 @@ const SignupForm = () => {
           <button type="submit"> registrera</button>
           <div>
   <p>Already have an account?</p>
-  <button type="button" variant="outline" onClick={() => window.location.href = 'http://localhost:5173/Login2'}>
+  <button type="button" variant="outline" onClick={() => window.location.href = `https://egilzebra.github.io/MeetUp-fullstack/Login2`}>
     Login
   </button>
 </div>

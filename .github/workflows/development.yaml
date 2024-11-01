@@ -5,8 +5,6 @@ on:
     branches:
       - dev
 
-env: 
-  VITE_API_URL: hey
 
 jobs:
   build:

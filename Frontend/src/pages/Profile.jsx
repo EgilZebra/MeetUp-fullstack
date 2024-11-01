@@ -1,13 +1,19 @@
+import { useState } from "react";
+import AllMU from "../components/Allmu/AllMU";
+import MyMU from "../components/myMU/MyMU";
+import SearchMU from "../components/searchMU/SearchMU";
+import CreateMU from "../components/forms/createMU/CreateMU";
+import "./style/Profile.css";
+import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import Overlay from "../components/overlay/Overlay";
-import "./style/Profile.css";
+
 const API_URL_BASE = process.env.API_URL_BASE;
 
 const profile = () => {
+  const GoTo = useNavigate();
   const [activeButton, setActiveButton] = useState("Alla Meetups");
-  const navigate = useNavigate();
 
   const [meetupsData, setMeetupsData] = useState([]);
   const [selectedMeetup, setSelectedMeetup] = useState(null);
@@ -45,6 +51,8 @@ const profile = () => {
     <div className="profile--wrapper">
       <div className="profile--personalInfo">
         <h1>username</h1>
+        <button className="userProfile-personalInfo__logout" onClick={() => {GoTo('/Login2')}}>Logga ut</button>
+
       </div>
 
       <div className="profile--menu">
@@ -56,7 +64,11 @@ const profile = () => {
         </button>
         <button
           className={activeButton === "Sök Meetups" ? "profile--active" : ""}
-          onClick={() => setActiveButton("Sök Meetups")}
+          onClick={() => {
+            setActiveButton("Sök Meetups");
+            GoTo('/search');
+           }
+
         >
           Sök Meetups
         </button>
@@ -68,7 +80,10 @@ const profile = () => {
         </button>
         <button
           className={activeButton === "Skapa Meetup" ? "profile--active" : ""}
-          onClick={() => setActiveButton("Skapa Meetup")}
+          onClick={() => {
+            setActiveButton("Skapa Meetup");
+            GoTo('/CreateMeet');
+          }
         >
           Skapa Meetup
         </button>
