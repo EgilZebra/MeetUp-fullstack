@@ -2,11 +2,13 @@ import AllMU from "../components/Allmu/AllMU";
 import MyMU from "../components/myMU/MyMU";
 import SearchMU from "../components/searchMU/SearchMU";
 import CreateMU from "../components/forms/createMU/CreateMU";
+import Search from "./Search";
 import "./style/Profile.css";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Overlay from "../components/overlay/Overlay";
+import CreateForm from "./CreateMeet";
 
 const API_URL_BASE = process.env.API_URL_BASE;
 
@@ -65,7 +67,6 @@ const profile = () => {
           className={activeButton === "Sök Meetups" ? "profile--active" : ""}
           onClick={() => {
             setActiveButton("Sök Meetups");
-            GoTo('/search');
            }
           }
         >
@@ -84,7 +85,6 @@ const profile = () => {
           className={activeButton === "Skapa Meetup" ? "profile--active" : ""}
           onClick={() => {
             setActiveButton("Skapa Meetup");
-            GoTo('/CreateMeet');
           }}
         >
           Skapa Meetup
@@ -108,12 +108,12 @@ const profile = () => {
         )}
         {activeButton === "Sök Meetups" && (
           <div className="profile-content__searchMUs">
-            {navigate("/search")}
+            < Search />
           </div>
         )}
         {activeButton === "Alla Meetups" && (
           <div className="profile-content__listMUs">
-            {meetupsData.length > 0 ? (
+            {meetupsData && meetupsData.length > 0 ? (
               <table className="profile-table">
                 <thead>
                   <tr>
@@ -129,38 +129,38 @@ const profile = () => {
                 <tbody>
                   {meetupsData &&
                     meetupsData.map((meetup) => {
-                      const participants = meetup.participants
-                        ? meetup.participants.split(",")
-                        : [];
-                      const availableSpots =
-                        meetup.capacity - participants.length;
+                      // const participants = meetup.participants
+                      //   ? meetup.participants.split(",")
+                      //   : [];
+                      // const availableSpots =
+                      //   meetup.capacity - participants.length;
 
                       const currentUserId = "elva";
-                      const participant = participants.includes(currentUserId);
+                      // const participant = participants.includes(currentUserId);
 
                       return (
                         <tr key={meetup.MeetingId}>
                           <td>{new Date(meetup.date).toLocaleDateString()}</td>
                           <td>{meetup.name}</td>
                           <td>{meetup.capacity}</td>
-                          <td>{availableSpots}</td>
+                           {/* <td>{availableSpots}</td> */}
                           <td>
                             <button
-                              disabled={
-                                availableSpots === 0 || participant === true
-                              }
+                              // disabled={
+                              //   availableSpots === 0 || participant === true
+                              // }
                             >
-                              {participant
+                              {/* {participant
                                 ? "Du är anmäld"
                                 : availableSpots > 0
                                 ? "Anmäl mig"
-                                : "Fullt"}
+                                : "Fullt"} */}
                             </button>
                           </td>
                           <td>
-                            <button disabled={participant === false}>
+                            {/* <button disabled={participant === false}>
                               {participant ? "AvAnmäl mig" : "Ej anmäld"}
-                            </button>
+                            </button> */}
                           </td>
                           <td>
                             <button onClick={() => handleMoreInfoClick(meetup)}>
@@ -179,7 +179,7 @@ const profile = () => {
         )}
         {activeButton === "Skapa Meetup" && (
           <div className="profile-content__createMU">
-            {navigate("/CreateMeet")}
+            < CreateForm />
           </div>
         )}
       </div>
