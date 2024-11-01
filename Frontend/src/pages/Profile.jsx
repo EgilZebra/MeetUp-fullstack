@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AllMU } from "../components/allMU/AllMU";
+import AllMU from "../components/Allmu/AllMU";
 import MyMU from "../components/myMU/MyMU";
 import SearchMU from "../components/searchMU/SearchMU";
 import CreateMU from "../components/forms/createMU/CreateMu";
