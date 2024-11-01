@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+const API_URL_BASE = process.env.API_URL_BASE;
 
 const LoginForm = () => {
+  const GoTo = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -27,7 +30,7 @@ const LoginForm = () => {
     console.log("Payload to send:", payLoad);
     
     try {
-      const response = await fetch('https://glgh7httw0.execute-api.eu-north-1.amazonaws.com/login', {
+      const response = await fetch(`${API_URL_BASE}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -43,12 +46,12 @@ const LoginForm = () => {
         localStorage.setItem('token', data.token, data.username ); // Store token in localStorage
         toast.success('Account Login successful');
         setTimeout(() => {
-          window.location.href = 'http://localhost:5173/profile';
-        }, 1000);
+         GoTo('/profile');
+        },1000);
       } else {
-        const errorData = await response.json(); // Handle errors returned by your API
-        console.log("Error response data:", errorData);
-        toast.error(`Error Login account: ${errorData.message || 'Unknown error'}`);
+        toast.error('Error Login account');
+        console.log(response.error)
+
       }
     } catch (error) {
       console.error("Caught error:", error);
@@ -116,11 +119,14 @@ const LoginForm = () => {
 
           <button type="submit">Login</button>
           <div>
-            <p>Already have an account?</p>
-            <button type="button" onClick={() => window.location.href = 'http://localhost:5173/signup2'}>
-              Sign up Here
-            </button>
-          </div>
+
+  <p>Already have an account?</p>
+  <button type="button" variant="outline" onClick={() => GoTo('/signup2')}>
+    Sign up Here
+  </button>
+</div>
+
+
         </form>
       </div>
 

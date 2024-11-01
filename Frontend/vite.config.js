@@ -1,4 +1,3 @@
-
 import path from "path"
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
@@ -7,7 +6,8 @@ config();
 
 export default defineConfig({
   plugins: [react()],
-   define: {
+  base: process.env.VITE_BASE,
+  define: {
     'process.env': process.env
   },
   resolve: {

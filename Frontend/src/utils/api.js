@@ -1,9 +1,6 @@
 import axios from "axios";
 
-export const getAPI = async (
-  BASE_URL = "https://glgh7httw0.execute-api.eu-north-1.amazonaws.com",
-  endpoint = "/"
-) => {
+export const getAPI = async (BASE_URL, endpoint = "/") => {
   try {
     const url = `${BASE_URL}${endpoint}`;
     console.log("URL", url);
