@@ -12,17 +12,29 @@ const CreateForm = () => {
     endtime: '',
     capacity: '',
     name: '',
-    participants: ''
+    participants: [],
   });
 
+  const [participantInput, setParticipantInput] = useState('');
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
+  };
+
+  const handleAddParticipant = () => {
+    if (participantInput.trim()) {
+      setFormData({
+        ...formData,
+        participants: [...formData.participants, participantInput.trim()],
+      });
+      setParticipantInput('');
+    }
   };
 
   const handleCreateMeet = async () => {
@@ -33,30 +45,45 @@ const CreateForm = () => {
       endtime: formData.endtime,
       capacity: parseInt(formData.capacity, 10),
       name: formData.name,
-      participants: formData.participants
+      participants: formData.participants,
     };
+
+    setLoading(true);
 
     try {
       const response = await fetch('https://glgh7httw0.execute-api.eu-north-1.amazonaws.com/create-meetup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4YzhmZGQ2MS1lNWY2LTRkYzQtOTQ1Yy1kNzViMzNiZmIzNjAiLCJpYXQiOjE3MzA0NzQ0MjAsImV4cCI6MTczMDQ3ODAyMH0.FDpXXvHLepMB5kGIOfjJEDDQvrab5xqjZorG0XQKeY4`, // Replace with actual token
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify(payLoad),
       });
 
       if (response.ok) {
         toast.success('Meetup created successfully!');
+        setFormData({
+          city: '',
+          location: '',
+          starttime: '',
+          endtime: '',
+          capacity: '',
+          name: '',
+          participants: [],
+        });
+        setErrors({});
         setTimeout(() => {
           window.location.href = 'http://localhost:5173/profile';
         }, 1000);
       } else {
-        toast.error('Error creating meetup');
+        const errorData = await response.json();
+        toast.error(errorData.message || 'Error creating meetup');
       }
     } catch (error) {
       console.error(error);
       toast.error("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,7 +95,7 @@ const CreateForm = () => {
     if (!formData.endtime.trim()) newErrors.endtime = 'End time is required';
     if (!formData.capacity) newErrors.capacity = 'Capacity is required';
     if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.participants.trim()) newErrors.participants = 'Participants are required';
+    if (formData.participants.length === 0) newErrors.participants = 'At least one participant is required';
 
     return newErrors;
   };
@@ -172,17 +199,29 @@ const CreateForm = () => {
               id="participants"
               name="participants"
               type="text"
-              value={formData.participants}
-              onChange={handleChange}
+              value={participantInput}
+              onChange={(e) => setParticipantInput(e.target.value)}
               className={errors.participants ? 'error' : ''}
             />
+            <button type="button" className= "Createbtn" onClick={handleAddParticipant}>
+              Add Participant
+            </button>
             {errors.participants && <span className="error-message">{errors.participants}</span>}
+            <div>
+              {formData.participants.map((participant, index) => (
+                <span key={index} className="participant-badge">
+                  {participant}
+                </span>
+              ))}
+            </div>
           </div>
 
-          <button type="submit" className="Createbtn">Create Meetup</button>
+          <button type="submit" className="Createbtn" disabled={loading}>
+            {loading ? 'Creating...' : 'Create Meetup'}
+          </button>
         </form>
       </div>
-      
+
       <ToastContainer />
     </div>
   );
