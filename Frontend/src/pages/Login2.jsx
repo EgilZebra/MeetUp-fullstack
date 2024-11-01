@@ -45,6 +45,7 @@ const LoginForm = () => {
         },1000);
       } else {
         toast.error('Error Login account');
+        console.log(response.error)
       }
     } catch (error) {
       console.error(error);
