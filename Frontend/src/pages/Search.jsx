@@ -1,7 +1,8 @@
 import { useState } from "react";
 import SearchBar from "@/components/ui/Searchbar";
-
-function Search() {
+const API_URL_BASE = process.env.API_URL_BASE;
+const Search = () => {
+  
   const [results, setResults] = useState([]); // State to store search results
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -13,7 +14,7 @@ function Search() {
 
     try {
       const response = await fetch(
-        `https://glgh7httw0.execute-api.eu-north-1.amazonaws.com/Search-meetups?query=${encodeURIComponent(
+        `${API_URL_BASE}/Search-meetups?query=${encodeURIComponent(
           searchTerm
         )}`
       );
