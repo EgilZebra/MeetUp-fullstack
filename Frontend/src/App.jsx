@@ -21,7 +21,7 @@ const router = createBrowserRouter(
       <Route path="/comment" element={<RateMU/>} />
       <Route path='/register' element={<RegisterMU />} />
     </Route>
-  ), {basename: process.env.VITE_BASE ? `${process.env.VITE_BASE}` : ''}
+  ), {basename: (process.env.VITE_BASE !== undefined) ? `${process.env.VITE_BASE}` : ''}
 );
 
 function App() {
