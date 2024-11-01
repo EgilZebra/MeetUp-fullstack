@@ -42,7 +42,7 @@ const SignupForm = () => {
       if (response.ok) {
         toast.success("Account created successfully");
         setTimeout(() => {
-          window.location.href = `${process.env.VITE_API_URL}/Login2`;
+          window.location.href = `https://egilzebra.github.io/MeetUp-fullstack/Login2`;
         }, 1000);
       } else {
         toast.error("Error creating account");
@@ -141,7 +141,7 @@ const SignupForm = () => {
               type="button"
               variant="outline"
               onClick={() =>
-                (window.location.href = `${process.env.VITE_API_URL}/Login2`)
+                (window.location.href = `https://egilzebra.github.io/MeetUp-fullstack/Login2`)
               }
             >
               Login
