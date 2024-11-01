@@ -58,7 +58,7 @@ router.post('/', async (req, res) => {
         const putCommand = new PutCommand(putParams);
 
         await db.send(putCommand);
-        return sendResponse(res, 200, { success: true, message: 'Account created successfully', data: { userId: userId } });
+        return sendResponse(res, 200, { success: true, message: 'Account created successfully', data: { userId: userId, username } });
 
     } catch (error) {
         console.error('Error creating account:', error);
