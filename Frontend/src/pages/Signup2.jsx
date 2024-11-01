@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const SignupForm = () => {
   const [formData, setFormData] = useState({
     username: '',
-    email: '',
+    
     password: '',
     confirmPassword: ''
   });
@@ -24,7 +24,7 @@ const SignupForm = () => {
   const handleSubmitSignup = async () => {
     const payLoad = { 
       username: formData.username, 
-      email: formData.email, 
+       
       password: formData.password 
     };
     try {
@@ -38,6 +38,9 @@ const SignupForm = () => {
 
       if (response.ok) {
         toast.success('Account created successfully');
+        setTimeout(() => {
+          window.location.href = 'http://localhost:5173/Login2';
+        },1000);
       } else {
         toast.error('Error creating account');
       }
@@ -83,7 +86,7 @@ const SignupForm = () => {
   return (
     <div className="form-container">
       <div className="form-card">
-        <h2>Sign Up</h2>
+        <h2>Registrera</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
@@ -128,7 +131,13 @@ const SignupForm = () => {
             )}
           </div>
 
-          <button type="submit">Sign Up</button>
+          <button type="submit"> registrera</button>
+          <div>
+  <p>Already have an account?</p>
+  <button type="button" variant="outline" onClick={() => window.location.href = 'http://localhost:5173/Login2'}>
+    Login
+  </button>
+</div>
         </form>
       </div>
 
