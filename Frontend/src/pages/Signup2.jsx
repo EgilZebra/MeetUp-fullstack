@@ -141,7 +141,7 @@ const SignupForm = () => {
               type="button"
               variant="outline"
               onClick={() =>
-                (window.location.href = "http://localhost:5173/Login2")
+                (window.location.href = `${process.env.VITE_API_URL}/Login2`)
               }
             >
               Login
