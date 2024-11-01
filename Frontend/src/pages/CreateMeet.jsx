@@ -3,8 +3,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './style/CreateMeet.css';
+import { useNavigate } from 'react-router-dom';
+const API_URL_BASE = process.env.API_URL_BASE;
 
 const CreateForm = () => {
+  const GoTo = useNavigate()
   const [formData, setFormData] = useState({
     city: '',
     location: '',
@@ -51,7 +54,7 @@ const CreateForm = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('https://glgh7httw0.execute-api.eu-north-1.amazonaws.com/create-meetup', {
+      const response = await fetch(`${API_URL_BASE}/create-meetup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +76,7 @@ const CreateForm = () => {
         });
         setErrors({});
         setTimeout(() => {
-          window.location.href = 'http://localhost:5173/profile';
+          GoTo('/profile');
         }, 1000);
       } else {
         const errorData = await response.json();
