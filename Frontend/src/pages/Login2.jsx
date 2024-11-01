@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+  const GoTo = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     
@@ -28,7 +30,7 @@ const LoginForm = () => {
       password: formData.password 
     };
     try {
-      const response = await fetch(`${process.env.VITE_API_URL}/Login`, {
+      const response = await fetch(`${process.env.VITE_API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,7 +41,7 @@ const LoginForm = () => {
       if (response.ok) {
         toast.success('Account Login successfull');
         setTimeout(() => {
-          window.location.href = 'http://localhost:5173/profile';
+          GoTo('/profile');
         },1000);
       } else {
         toast.error('Error Login account');
@@ -134,7 +136,7 @@ const LoginForm = () => {
           <button type="submit">Login</button>
           <div>
   <p>Already have an account?</p>
-  <button type="button" variant="outline" onClick={() => window.location.href = 'http://localhost:5173/signup2'}>
+  <button type="button" variant="outline" onClick={() => GoTo('/signup2')}>
     Sign up Here
   </button>
 </div>
