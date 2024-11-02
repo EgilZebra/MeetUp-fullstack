@@ -9,6 +9,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Overlay from "../components/overlay/Overlay";
 import CreateForm from "./CreateMeet";
+const currenUserId = "test123";
 
 const API_URL_BASE = process.env.API_URL_BASE;
 const currentUserId = "test123";
@@ -78,7 +79,7 @@ const profile = () => {
   return (
     <div className="profile--wrapper">
       <div className="profile--personalInfo">
-        <h1>username</h1>
+        <h1>username: {currenUserId}</h1>
         <button
           className="userProfile-personalInfo__logout"
           onClick={() => {
