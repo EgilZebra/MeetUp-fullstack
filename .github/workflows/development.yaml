@@ -3,7 +3,7 @@ name: Deploy MeetUp App Pages
 on:
   push:
     branches:
-      - React-updates
+      - dev
 
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
             echo "VITE_BASE=/" >> $GITHUB_ENV
-          elif [ "${{ github.ref }}" == "refs/heads/React-updates" ]; then
+          elif [ "${{ github.ref }}" == "refs/heads/dev" ]; then
             echo "VITE_BASE=/MeetUp-fullstack" >> $GITHUB_ENV
           fi
 
