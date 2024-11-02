@@ -4,12 +4,7 @@ const { db } = require('../../services/db')
 const RegisterMU = async ( req, res ) => { 
 
     const reqBody = req.body;
-    if ( !reqBody.userName ) {
-        res.status(400).json({
-            success: false,
-            error: 'Missing userName in request'
-        })
-    } else if ( !reqBody.meetingId ) {
+    if ( !reqBody.meetingId ) {
         res.status(400).json({
             success: false,
             error: 'Missing meetingId in request'
@@ -23,7 +18,7 @@ const RegisterMU = async ( req, res ) => {
             },
             UpdateExpression: 'set participants = list_append(if_not_exists(participants, :emptyList), :new_participant)',
             ExpressionAttributeValues: {
-                ':new_participant': [reqBody.userName],
+                ':new_participant': [req.user.username],
                 ':emptyList': []
             },
             ReturnValue: 'ALL_NEW'

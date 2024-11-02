@@ -1,16 +1,19 @@
+const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.VITE_API_URL : process.env.VITE_API_URL ;
+
 export const RegisterMU = ( MeetingId ) => {
 
-    const username = localStorage.getItem(username);
+
+    const token = localStorage.getItem(token);
     const RegisterToMu = async() => {
         try {
-            const response = await fetch((`${import.meta.env.VITE_API_URL}/register`), {
+            const response = await fetch((`${API_URL_BASE}/register`), {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({ 
-                    userName: username,
-                    meetingId: MeetingId, 
+                    meetingId: MeetingId 
                 })
             })
             const data = await response.json();
@@ -25,13 +28,13 @@ export const RegisterMU = ( MeetingId ) => {
 
     const UnRegisterToMu = async() => {
         try {
-            const response = await fetch((`${import.meta.env.VITE_API_URL}/register`), {
+            const response = await fetch((`${API_URL_BASE}/register`), {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({ 
-                    userName: username,
                     meetingId: MeetingId 
                 })
             })

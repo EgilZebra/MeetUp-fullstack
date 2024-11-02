@@ -4,12 +4,7 @@ const { db } = require('../../services/db');
 const RateMU = async (req, res) => {
 
     const reqBody = req.body;
-    if ( !reqBody.userId ) {
-        res.status(400).json({
-            success: false,
-            error: 'Missing userId in request'
-        })
-    } else if (!reqBody.meetingId) {
+    if (!reqBody.meetingId) {
         res.status(400).json({
             success: false,
             error: 'Missing meetingId in request'
@@ -25,9 +20,9 @@ const RateMU = async (req, res) => {
             error: 'Missing comment in request'
         })
     }
-    // { userId: , MeetingId: , score: , comment:  }
+    // {  MeetingId: , score: , comment:  }
     const rating = {
-        userId: reqBody.userId,
+        userId: req.user.userId,
         score: reqBody.score,
         comment: reqBody.comment
     }

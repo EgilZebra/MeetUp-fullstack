@@ -23,9 +23,9 @@ app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/create-meetup', authMiddleware, createMeetupRouter);
 app.use('/Search-meetups', SearchMeetupRouter);
-app.use('/comment', rateMu);
+app.use('/comment', authMiddleware, rateMu);
 app.use("/meetups", meetupsRoutes);
-app.use("/register", RegisterMU)
+app.use("/register", authMiddleware, RegisterMU);
 
 // Export handler for AWS Lambda
 exports.handler = serverless(app);
