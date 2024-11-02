@@ -22,9 +22,9 @@ app.use(cors());
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/create-meetup', authMiddleware, createMeetupRouter);
-app.use('/Search-meetups', SearchMeetupRouter);
+app.use('/Search-meetups', authMiddleware, SearchMeetupRouter);
 app.use('/comment', authMiddleware, rateMu);
-app.use("/meetups", meetupsRoutes);
+app.use("/meetups", authMiddleware, meetupsRoutes);
 app.use("/register", authMiddleware, RegisterMU);
 
 // Export handler for AWS Lambda

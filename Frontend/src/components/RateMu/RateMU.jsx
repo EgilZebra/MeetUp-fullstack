@@ -4,7 +4,7 @@ const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.V
 
 export const RateMU = ( MeetingId ) => {
 
-    const token = localStorage.getItem(token)
+    const token = localStorage.getItem('token')
     const SendComment = async() => {
         try {
             const response = await fetch((`${API_URL_BASE}/comment`), {
