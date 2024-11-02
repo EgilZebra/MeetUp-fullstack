@@ -22,7 +22,7 @@ const profile = () => {
 
   const fetchMeetups = async () => {
     try {
-      const url = API_URL_BASE + "/meetups";
+      const url = `${API_URL_BASE}/meetups`;
       console.log("URL", url);
       const response = await axios.get(url);
       console.log("response", response);
