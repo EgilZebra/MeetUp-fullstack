@@ -2,7 +2,6 @@ const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.V
 
 export const RegisterMU = ( MeetingId ) => {
 
-
     const token = localStorage.getItem('token');
     const RegisterToMu = async() => {
         try {

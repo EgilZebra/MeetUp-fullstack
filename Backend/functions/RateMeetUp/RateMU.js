@@ -1,4 +1,4 @@
-const { UpdateCommand } = require('@aws-sdk/lib-dynamodb')
+const { UpdateCommand } = require('@aws-sdk/lib-dynamodb');
 const { db } = require('../../services/db');
 
 const RateMU = async (req, res) => {

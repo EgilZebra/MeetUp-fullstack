@@ -1,4 +1,4 @@
-const { DeleteCommand, QueryCommand, UpdateCommand } = require('@aws-sdk/lib-dynamodb')
+const { QueryCommand, UpdateCommand } = require('@aws-sdk/lib-dynamodb')
 const { db } = require('../../services/db')
 
 const RegisterMU = async ( req, res ) => { 

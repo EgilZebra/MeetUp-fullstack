@@ -1,7 +1,7 @@
 const express = require("express");
 const serverless = require("serverless-http");
 const bodyParser = require('body-parser');
-const signupRouter = require('./Functions/Account/Signup'); // Ensure the path is correct
+const signupRouter = require('./Functions/Account/Signup');
 const loginRouter = require('./Functions/Account/Login');
 const createMeetupRouter = require('./Functions/CreateMeetup/CreateMeetup');
 const SearchMeetupRouter = require('./Functions/SearchMeetup/SearchMeetup');
@@ -10,7 +10,7 @@ require("dotenv").config();
 const cors = require('cors');
 const rateMu = require('./Functions/RateMeetUp/RateRouter');
 const meetupsRoutes = require("./routes/meetupsRoutes");
-const RegisterMU = require('./Functions/RegisterMeetUp/RegisterRoute')
+const RegisterMU = require('./Functions/RegisterMeetUp/RegisterRoute');
 
 const app = express();
 
