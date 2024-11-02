@@ -2,3 +2,9 @@
   background-color: white;
   color: black;
 }
+.profile--wrapper button {
+  background-color: grey;
+}
+.profile--wrapper button.profile--active {
+  background-color: green;
+}

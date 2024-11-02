@@ -11,12 +11,14 @@ import Overlay from "../components/overlay/Overlay";
 import CreateForm from "./CreateMeet";
 
 const API_URL_BASE = process.env.API_URL_BASE;
+const currentUserId = "test123";
 
 const profile = () => {
   const GoTo = useNavigate();
   const [activeButton, setActiveButton] = useState("Alla Meetups");
 
   const [meetupsData, setMeetupsData] = useState([]);
+  const [myMeetupsData, setMyMeetupsData] = useState([]);
   const [selectedMeetup, setSelectedMeetup] = useState(null);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
@@ -26,7 +28,7 @@ const profile = () => {
       console.log("URL", url);
       const response = await axios.get(url);
       console.log("response", response);
-      const data = response.data.data;
+      const data = response.data.data.Items;
       console.log(data);
       setMeetupsData(data);
       return data;
@@ -34,6 +36,31 @@ const profile = () => {
       console.error("Error fetching meetups:", error);
     }
   };
+
+  const fetchMyMeetups = async (userId) => {
+    try {
+      const url = API_URL_BASE + "/meetups";
+      console.log("URL", url);
+      const response = await axios.post(url, { userId });
+      console.log("response", response);
+      const data = response.data.data;
+      console.log(data);
+      setMyMeetupsData(data);
+      return data;
+    } catch (error) {
+      console.error("Error fetching meetups:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (activeButton === "Alla Meetups") {
+      fetchMeetups();
+    }
+    if (activeButton === "Min Profil") {
+      fetchMyMeetups(currentUserId);
+    }
+  }, [activeButton]);
+
   useEffect(() => {
     fetchMeetups();
   }, []);
@@ -52,8 +79,14 @@ const profile = () => {
     <div className="profile--wrapper">
       <div className="profile--personalInfo">
         <h1>username</h1>
-        <button className="userProfile-personalInfo__logout" onClick={() => {GoTo('/Login2')}}>Logga ut</button>
-
+        <button
+          className="userProfile-personalInfo__logout"
+          onClick={() => {
+            GoTo("/Login2");
+          }}
+        >
+          Logga ut
+        </button>
       </div>
 
       <div className="profile--menu">
@@ -67,8 +100,7 @@ const profile = () => {
           className={activeButton === "Sök Meetups" ? "profile--active" : ""}
           onClick={() => {
             setActiveButton("Sök Meetups");
-           }
-          }
+          }}
         >
           Sök Meetups
         </button>
@@ -77,7 +109,7 @@ const profile = () => {
           onClick={() => {
             setActiveButton("Alla Meetups");
             // GoTo('/AllMU');
-        }}
+          }}
         >
           Alla Meetups
         </button>
@@ -94,21 +126,43 @@ const profile = () => {
       <div className="profile-content">
         {activeButton === "Min Profil" && (
           <div className="profile-content__profile">
-            <h4>Min Profil</h4>
-            <p>
-              Som en användare, vill jag ha en profil där jag kan se mina
-              anmälda meetups och tidigare meetups, så att jag kan hålla reda på
-              min meetup-historik och planera för framtida meetups.Användaren
-              kan se en "Min Profil" knapp eller länk någonstans på sidan.
-              Användaren kan klicka på "Min Profil" för att se en lista över
-              sina anmälda och tidigare meetups. Användaren kan klicka på varje
-              meetup i listan för att se mer information.
-            </p>
+            {myMeetupsData && myMeetupsData.length > 0 ? (
+              <table className="profile-table">
+                <thead>
+                  <tr>
+                    <th>id</th>
+                    <th>Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {myMeetupsData &&
+                    myMeetupsData.map((meetup) => {
+                      // const participants = meetup.participants
+                      //   ? meetup.participants.split(",")
+                      //   : [];
+                      // const availableSpots =
+                      //   meetup.capacity - participants.length;
+
+                      const currentUserId = "elva";
+                      // const participant = participants.includes(currentUserId);
+
+                      return (
+                        <tr key={meetup.MeetingId}>
+                          <td>{meetup.MeetingId}</td>
+                          <td>{meetup.name}</td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            ) : (
+              <p>You have not registired to any MU yet.</p>
+            )}
           </div>
         )}
         {activeButton === "Sök Meetups" && (
           <div className="profile-content__searchMUs">
-            < Search />
+            <Search />
           </div>
         )}
         {activeButton === "Alla Meetups" && (
@@ -143,12 +197,12 @@ const profile = () => {
                           <td>{new Date(meetup.date).toLocaleDateString()}</td>
                           <td>{meetup.name}</td>
                           <td>{meetup.capacity}</td>
-                           {/* <td>{availableSpots}</td> */}
+                          {/* <td>{availableSpots}</td> */}
                           <td>
                             <button
-                              // disabled={
-                              //   availableSpots === 0 || participant === true
-                              // }
+                            // disabled={
+                            //   availableSpots === 0 || participant === true
+                            // }
                             >
                               {/* {participant
                                 ? "Du är anmäld"
@@ -179,7 +233,7 @@ const profile = () => {
         )}
         {activeButton === "Skapa Meetup" && (
           <div className="profile-content__createMU">
-            < CreateForm />
+            <CreateForm />
           </div>
         )}
       </div>
