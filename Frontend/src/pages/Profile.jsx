@@ -225,6 +225,7 @@ const profile = () => {
           isOpen={isOverlayOpen}
           selectedMeetup={selectedMeetup}
           onClose={closeOverlay}
+          currentUserId={currentUserId}
         />
       )}
     </div>
