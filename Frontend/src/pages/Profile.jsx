@@ -10,7 +10,7 @@ import axios from "axios";
 import Overlay from "../components/overlay/Overlay";
 import CreateForm from "./CreateMeet";
 
-const API_URL_BASE = process.env.API_URL_BASE;
+const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.VITE_API_URL : process.env.VITE_API_URL ;
 
 const profile = () => {
   const GoTo = useNavigate();
@@ -22,7 +22,7 @@ const profile = () => {
 
   const fetchMeetups = async () => {
     try {
-      const url = API_URL_BASE + "/meetups";
+      const url = `${API_URL_BASE}/meetups`;
       console.log("URL", url);
       const response = await axios.get(url);
       console.log("response", response);

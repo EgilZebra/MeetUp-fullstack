@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.VITE_API_URL : process.env.VITE_API_URL ;
 import './style/CreateMeet.css';
 
 const CreateForm = () => {
@@ -51,7 +51,8 @@ const CreateForm = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('https://glgh7httw0.execute-api.eu-north-1.amazonaws.com/create-meetup', {
+      const token = localStorage.getItem(token);
+      const response = await fetch(`${API_URL_BASE}/create-meetup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +74,7 @@ const CreateForm = () => {
         });
         setErrors({});
         setTimeout(() => {
-          window.location.href = 'http://localhost:5173/profile';
+          GoTo('/profile');
         }, 1000);
       } else {
         const errorData = await response.json();

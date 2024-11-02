@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
-const API_URL_BASE = process.env.VITE_API_URL;
+const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.VITE_API_URL : process.env.VITE_API_URL ;
 
 const LoginForm = () => {
   const GoTo = useNavigate();
@@ -30,6 +30,7 @@ const LoginForm = () => {
     console.log("Payload to send:", payLoad);
     
     try {
+      console.log(API_URL_BASE)
       const response = await fetch(`${API_URL_BASE}/login`, {
         method: 'POST',
         headers: {
