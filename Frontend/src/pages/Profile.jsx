@@ -132,6 +132,7 @@ const profile = () => {
                   <tr>
                     <th>id</th>
                     <th>Name</th>
+                    <th>Mer Info</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -150,6 +151,11 @@ const profile = () => {
                         <tr key={meetup.MeetingId}>
                           <td>{meetup.MeetingId}</td>
                           <td>{meetup.name}</td>
+                          <td>
+                            <button onClick={() => handleMoreInfoClick(meetup)}>
+                              Mer information
+                            </button>
+                          </td>
                         </tr>
                       );
                     })}
@@ -171,13 +177,9 @@ const profile = () => {
               <table className="profile-table">
                 <thead>
                   <tr>
-                    <th>Date</th>
+                    <th>id</th>
                     <th>Name</th>
-                    <th>Platser tillgängliga</th>
-                    <th>Platser lediga</th>
-                    <th>Anmälan</th>
-                    <th>AV-Anmälan</th>
-                    <th>Info</th>
+                    <th>Mer info</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -194,28 +196,9 @@ const profile = () => {
 
                       return (
                         <tr key={meetup.MeetingId}>
-                          <td>{new Date(meetup.date).toLocaleDateString()}</td>
+                          <td>{meetup.MeetingId}</td>
                           <td>{meetup.name}</td>
-                          <td>{meetup.capacity}</td>
-                          {/* <td>{availableSpots}</td> */}
-                          <td>
-                            <button
-                            // disabled={
-                            //   availableSpots === 0 || participant === true
-                            // }
-                            >
-                              {/* {participant
-                                ? "Du är anmäld"
-                                : availableSpots > 0
-                                ? "Anmäl mig"
-                                : "Fullt"} */}
-                            </button>
-                          </td>
-                          <td>
-                            {/* <button disabled={participant === false}>
-                              {participant ? "AvAnmäl mig" : "Ej anmäld"}
-                            </button> */}
-                          </td>
+
                           <td>
                             <button onClick={() => handleMoreInfoClick(meetup)}>
                               Mer information
