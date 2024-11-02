@@ -10,6 +10,8 @@ router.get("/", async (req, res) => {
       TableName: process.env.TABLE_NAME_MEETINGS,
     });
 
+    /** PAUSED FILTER DATE
+
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
 
@@ -18,10 +20,11 @@ router.get("/", async (req, res) => {
       meetupDate.setHours(0, 0, 0, 0);
       return meetupDate >= currentDate;
     });
+     */
 
     res.status(200).json({
       success: true,
-      data: upcomingMeetups,
+      data: result,
     });
   } catch (error) {
     console.error("Error fetching meetups:", error);

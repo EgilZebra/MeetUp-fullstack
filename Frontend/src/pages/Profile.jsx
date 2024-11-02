@@ -1,7 +1,3 @@
-import AllMU from "../components/Allmu/AllMU";
-import MyMU from "../components/myMU/MyMU";
-import SearchMU from "../components/searchMU/SearchMU";
-import CreateMU from "../components/forms/createMU/CreateMU";
 import Search from "./Search";
 import "./style/Profile.css";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +22,7 @@ const profile = () => {
       console.log("URL", url);
       const response = await axios.get(url);
       console.log("response", response);
-      const data = response.data.data;
+      const data = response.data.data.Items;
       console.log(data);
       setMeetupsData(data);
       return data;
@@ -52,8 +48,14 @@ const profile = () => {
     <div className="profile--wrapper">
       <div className="profile--personalInfo">
         <h1>username</h1>
-        <button className="userProfile-personalInfo__logout" onClick={() => {GoTo('/Login2')}}>Logga ut</button>
-
+        <button
+          className="userProfile-personalInfo__logout"
+          onClick={() => {
+            GoTo("/Login2");
+          }}
+        >
+          Logga ut
+        </button>
       </div>
 
       <div className="profile--menu">
@@ -67,8 +69,7 @@ const profile = () => {
           className={activeButton === "Sök Meetups" ? "profile--active" : ""}
           onClick={() => {
             setActiveButton("Sök Meetups");
-           }
-          }
+          }}
         >
           Sök Meetups
         </button>
@@ -77,7 +78,7 @@ const profile = () => {
           onClick={() => {
             setActiveButton("Alla Meetups");
             // GoTo('/AllMU');
-        }}
+          }}
         >
           Alla Meetups
         </button>
@@ -108,7 +109,7 @@ const profile = () => {
         )}
         {activeButton === "Sök Meetups" && (
           <div className="profile-content__searchMUs">
-            < Search />
+            <Search />
           </div>
         )}
         {activeButton === "Alla Meetups" && (
@@ -117,56 +118,17 @@ const profile = () => {
               <table className="profile-table">
                 <thead>
                   <tr>
-                    <th>Date</th>
+                    <th>MeetingId</th>
                     <th>Name</th>
-                    <th>Platser tillgängliga</th>
-                    <th>Platser lediga</th>
-                    <th>Anmälan</th>
-                    <th>AV-Anmälan</th>
-                    <th>Info</th>
                   </tr>
                 </thead>
                 <tbody>
                   {meetupsData &&
                     meetupsData.map((meetup) => {
-                      // const participants = meetup.participants
-                      //   ? meetup.participants.split(",")
-                      //   : [];
-                      // const availableSpots =
-                      //   meetup.capacity - participants.length;
-
-                      const currentUserId = "elva";
-                      // const participant = participants.includes(currentUserId);
-
                       return (
                         <tr key={meetup.MeetingId}>
-                          <td>{new Date(meetup.date).toLocaleDateString()}</td>
+                          <td>{meetup.MeetingId}</td>
                           <td>{meetup.name}</td>
-                          <td>{meetup.capacity}</td>
-                           {/* <td>{availableSpots}</td> */}
-                          <td>
-                            <button
-                              // disabled={
-                              //   availableSpots === 0 || participant === true
-                              // }
-                            >
-                              {/* {participant
-                                ? "Du är anmäld"
-                                : availableSpots > 0
-                                ? "Anmäl mig"
-                                : "Fullt"} */}
-                            </button>
-                          </td>
-                          <td>
-                            {/* <button disabled={participant === false}>
-                              {participant ? "AvAnmäl mig" : "Ej anmäld"}
-                            </button> */}
-                          </td>
-                          <td>
-                            <button onClick={() => handleMoreInfoClick(meetup)}>
-                              Mer information
-                            </button>
-                          </td>
                         </tr>
                       );
                     })}
@@ -179,7 +141,7 @@ const profile = () => {
         )}
         {activeButton === "Skapa Meetup" && (
           <div className="profile-content__createMU">
-            < CreateForm />
+            <CreateForm />
           </div>
         )}
       </div>
