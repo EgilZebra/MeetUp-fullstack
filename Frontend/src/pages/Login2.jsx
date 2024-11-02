@@ -40,9 +40,12 @@ const LoginForm = () => {
       });
 
       if (response.ok) {
-        toast.success('Account Login successfull');
+        const data = await response.json(); // Get the response data
+        console.log("Login successful, received data:", data);
+        localStorage.setItem('token', data.token, data.username ); // Store token in localStorage
+        toast.success('Account Login successful');
         setTimeout(() => {
-          GoTo('/profile');
+         GoTo('/profile');
         },1000);
       } else {
         toast.error('Error Login account');

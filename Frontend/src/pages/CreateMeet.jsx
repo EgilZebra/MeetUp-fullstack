@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+const API_URL_BASE = process.env.API_URL_BASE;
 import './style/CreateMeet.css';
 
 const CreateForm = () => {
@@ -37,11 +37,11 @@ const CreateForm = () => {
     };
 
     try {
-      const response = await fetch('https://glgh7httw0.execute-api.eu-north-1.amazonaws.com/create-meetup', {
+      const response = await fetch(`${API_URL_BASE}/create-meetup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4YzhmZGQ2MS1lNWY2LTRkYzQtOTQ1Yy1kNzViMzNiZmIzNjAiLCJpYXQiOjE3MzA0NzQ0MjAsImV4cCI6MTczMDQ3ODAyMH0.FDpXXvHLepMB5kGIOfjJEDDQvrab5xqjZorG0XQKeY4`, // Replace with actual token
+          'Authorization': `Bearer ${localStorage.getItem(token)}`, // Replace with actual token
         },
         body: JSON.stringify(payLoad),
       });
@@ -49,7 +49,7 @@ const CreateForm = () => {
       if (response.ok) {
         toast.success('Meetup created successfully!');
         setTimeout(() => {
-          window.location.href = 'http://localhost:5173/profile';
+          GoTo('/profile');
         }, 1000);
       } else {
         toast.error('Error creating meetup');
