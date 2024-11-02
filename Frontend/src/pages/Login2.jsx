@@ -31,6 +31,7 @@ const LoginForm = () => {
       password: formData.password 
     };
     try {
+      console.log(API_URL_BASE)
       const response = await fetch(`${API_URL_BASE}/login`, {
         method: 'POST',
         headers: {

@@ -37,11 +37,12 @@ const CreateForm = () => {
     };
 
     try {
+      const token = localStorage.getItem(token);
       const response = await fetch(`${API_URL_BASE}/create-meetup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem(token)}`, // Replace with actual token
+          'Authorization': `Bearer ${token}`, // Replace with actual token
         },
         body: JSON.stringify(payLoad),
       });
