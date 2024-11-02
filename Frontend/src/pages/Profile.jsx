@@ -1,7 +1,3 @@
-import AllMU from "../components/Allmu/AllMU";
-import MyMU from "../components/myMU/MyMU";
-import SearchMU from "../components/searchMU/SearchMU";
-import CreateMU from "../components/forms/createMU/CreateMU";
 import Search from "./Search";
 import "./style/Profile.css";
 import { useNavigate } from "react-router-dom";
@@ -9,15 +5,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Overlay from "../components/overlay/Overlay";
 import CreateForm from "./CreateMeet";
-const currenUserId = "test123";
-
 const API_URL_BASE = process.env.API_URL_BASE;
 const currentUserId = "test123";
 
 const profile = () => {
   const GoTo = useNavigate();
   const [activeButton, setActiveButton] = useState("Alla Meetups");
-
   const [meetupsData, setMeetupsData] = useState([]);
   const [myMeetupsData, setMyMeetupsData] = useState([]);
   const [selectedMeetup, setSelectedMeetup] = useState(null);
@@ -79,7 +72,7 @@ const profile = () => {
   return (
     <div className="profile--wrapper">
       <div className="profile--personalInfo">
-        <h1>username: {currenUserId}</h1>
+        <h1>username: {currentUserId}</h1>
         <button
           className="userProfile-personalInfo__logout"
           onClick={() => {
