@@ -16,10 +16,12 @@ const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
     try {
       const url = `${API_URL_BASE}/register`;
       console.log("URL", url);
-      const response = await axios.post(url, { meetingId },  {
-  headers: {
-    Authorization: Bearer ${token}
-  }});
+      const response = await axios.post(
+        url, { meetingId },  
+      { headers: {
+            Authorization: Bearer ${token}
+            }
+      });
       console.log("response", response);
       const data = response.data.data.Items;
       setRegisterStatus(
@@ -40,12 +42,12 @@ const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
     try {
       const url = `${API_URL_BASE}/register`;
       console.log("URL", url);
-      const response = await axios.delete(url, {
-        data: { meetingId },  {
-  headers: {
-    Authorization: Bearer ${token}
-  }
-    }});
+      const response = await axios.delete(url, 
+        { data: { meetingId }}, 
+        { headers: {
+              Authorization: Bearer ${token}
+          }
+        });
       console.log("response", response);
       const data = response.data.data.Items;
       setUnregisterStatus(
