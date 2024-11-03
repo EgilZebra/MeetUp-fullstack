@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Overlay.css";
 import axios from "axios";
-const API_URL_BASE = process.env.API_URL_BASE;
+const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.VITE_API_URL : process.env.VITE_API_URL;
 
 const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
   if (!isOpen) return null;
