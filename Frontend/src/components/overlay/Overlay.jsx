@@ -78,10 +78,10 @@ const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
         <p>
           <strong>Participants:</strong> {selectedMeetup.participants}
         </p>
-        <button onClick={() => registerMU(userName, meetingId)}>
+        <button onClick={() => registerMU( meetingId)}>
           Anmäl mig
         </button>
-        <button onClick={() => unRegisterMU(userName, meetingId)}>
+        <button onClick={() => unRegisterMU( meetingId)}>
           Avanmäl mig
         </button>
         <button onClick={onClose}>Close</button>
