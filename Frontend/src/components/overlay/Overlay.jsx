@@ -15,7 +15,7 @@ const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
     try {
       const url = API_URL_BASE + "/register";
       console.log("URL", url);
-      const response = await axios.post(url, { userName, meetingId });
+      const response = await axios.post(url, { meetingId });
       console.log("response", response);
       const data = response.data.data.Items;
       setRegisterStatus(
@@ -37,7 +37,7 @@ const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
       const url = API_URL_BASE + "/register";
       console.log("URL", url);
       const response = await axios.delete(url, {
-        data: { userName, meetingId },
+        data: { meetingId },
       });
       console.log("response", response);
       const data = response.data.data.Items;
