@@ -1,18 +1,19 @@
 import { useState } from "react";
+const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.VITE_API_URL : process.env.VITE_API_URL ;
 
 
 export const RateMU = ( MeetingId ) => {
 
-    const userId = localStorage.getItem(userId);
+    const token = localStorage.getItem('token')
     const SendComment = async() => {
         try {
-            const response = await fetch((`${import.meta.env.VITE_API_URL}/comment`), {
+            const response = await fetch((`${API_URL_BASE}/comment`), {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({ 
-                    userId: userId,
                     meetingId: MeetingId, 
                     score: `${score}/5`, 
                     comment: comment

@@ -81,15 +81,9 @@ const profile = () => {
   return (
     <div className="profile--wrapper">
       <div className="profile--personalInfo">
-        <h1> username: {currentUserId}</h1>
-        <button
-          className="userProfile-personalInfo__logout"
-          onClick={() => {
-            GoTo("/Login2");
-          }}
-        >
-          Logga ut
-        </button>
+        <h1>{localStorage.getItem('username')}</h1>
+        <button className="userProfile-personalInfo__logout" onClick={() => {GoTo('/Login2')}}>Logga ut</button>
+
       </div>
 
       <div className="profile--menu">
