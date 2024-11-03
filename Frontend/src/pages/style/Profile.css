@@ -2,3 +2,13 @@
   background-color: white;
   color: black;
 }
+
+.profile--wrapper .profile--menu button {
+  background-color: black;
+  color: white;
+}
+
+.profile--wrapper .profile--menu button.profile--active {
+  background-color: green;
+  color: white;
+}
