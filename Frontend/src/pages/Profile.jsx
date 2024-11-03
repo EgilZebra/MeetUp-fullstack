@@ -15,7 +15,7 @@ process.env.VITE_API_URL == undefined
    ? import.meta.env.VITE_API_URL
     : process.env.VITE_API_URL;
 
-// const currentUserId = "test123";
+const currentUserId = localStorage.getItem('username');
 
 const profile = () => {
   const GoTo = useNavigate();
