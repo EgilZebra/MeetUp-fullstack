@@ -2,10 +2,12 @@
 
 Fullstack application for creating and signing up for meetups
 
+## Fantastic Sheriffs
 
-Assignment
-https://gist.github.com/zocom-christoffer-wallenberg/f8a7e32ac90896984443808a458fa289
+- Anders Pettersson 
+- Anna Thunberg
+- Yousef Shahidi
+- Egil Ramsten
 
-User-stories
-https://github.com/users/zocom-christoffer-wallenberg/projects/15/views/1
-
+## Github Pages
+https://egilzebra.github.io/MeetUp-fullstack/

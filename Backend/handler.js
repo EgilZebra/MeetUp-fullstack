@@ -13,6 +13,7 @@ const meetupsRoutes = require("./routes/meetupsRoutes");
 const RegisterMU = require('./Functions/RegisterMeetUp/RegisterRoute');
 
 const app = express();
+require("dotenv").config();
 
 app.use(express.json());
 app.use(bodyParser.json()); // Middleware to parse JSON bodies
