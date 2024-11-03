@@ -19,7 +19,7 @@ const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
       const response = await axios.post(
         url, { meetingId },  
       { headers: {
-            Authorization: Bearer ${token}
+            Authorization: `Bearer ${token}`
             }
       });
       console.log("response", response);
@@ -45,7 +45,7 @@ const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
       const response = await axios.delete(url, 
         { data: { meetingId }}, 
         { headers: {
-              Authorization: Bearer ${token}
+              Authorization: `Bearer ${token}`
           }
         });
       console.log("response", response);
