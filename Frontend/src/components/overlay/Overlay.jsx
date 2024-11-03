@@ -19,7 +19,7 @@ const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
       const response = await axios.post(url, { meetingId },  {
   headers: {
     Authorization: Bearer ${token}
-  });
+  }});
       console.log("response", response);
       const data = response.data.data.Items;
       setRegisterStatus(
@@ -45,7 +45,7 @@ const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
   headers: {
     Authorization: Bearer ${token}
   }
-      });
+    }});
       console.log("response", response);
       const data = response.data.data.Items;
       setUnregisterStatus(
