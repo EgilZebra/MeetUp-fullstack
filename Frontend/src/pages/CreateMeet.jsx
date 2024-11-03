@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.VITE_API_URL : process.env.VITE_API_URL ;
 import './style/CreateMeet.css';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 const API_URL_BASE = process.env.API_URL_BASE;
 
 const CreateForm = () => {
   const GoTo = useNavigate()
+=======
+
+const CreateForm = () => {
+  const GoTo = useNavigate();
+>>>>>>> 1ff044f008f663b14d7743dc03cc42145d36f075
   const [formData, setFormData] = useState({
     city: '',
     location: '',
@@ -54,11 +60,15 @@ const CreateForm = () => {
     setLoading(true);
 
     try {
+<<<<<<< HEAD
+=======
+      const token = localStorage.getItem('token');
+>>>>>>> 1ff044f008f663b14d7743dc03cc42145d36f075
       const response = await fetch(`${API_URL_BASE}/create-meetup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(payLoad),
       });

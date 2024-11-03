@@ -2,7 +2,8 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-const VITE_API_URL = process.env.VITE_API_URL;
+const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.VITE_API_URL : process.env.VITE_API_URL ;
+
 
 const SignupForm = () => {
   const GoTo = useNavigate();
@@ -32,7 +33,7 @@ const SignupForm = () => {
     };
     try {
       const response = await fetch(
-        `${VITE_API_URL}/signup`,
+        `${API_URL_BASE}/signup`,
         {
           method: "POST",
           headers: {
