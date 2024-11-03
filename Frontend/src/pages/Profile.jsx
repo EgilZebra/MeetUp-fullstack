@@ -10,13 +10,12 @@ import axios from "axios";
 import Overlay from "../components/overlay/Overlay";
 import CreateForm from "./CreateMeet";
 
-//const API_URL_BASE =
-// process.env.VITE_API_URL == undefined
-//    ? import.meta.env.VITE_API_URL
-//    : process.env.VITE_API_URL;
+const API_URL_BASE =
+process.env.VITE_API_URL == undefined
+   ? import.meta.env.VITE_API_URL
+    : process.env.VITE_API_URL;
 
-const API_URL_BASE = process.env.API_URL_BASE;
-const currentUserId = "test123";
+// const currentUserId = "test123";
 
 const profile = () => {
   const GoTo = useNavigate();
