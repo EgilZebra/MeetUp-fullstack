@@ -4,6 +4,7 @@ import axios from "axios";
 const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.VITE_API_URL : process.env.VITE_API_URL;
 
 const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
+  const token = localStorage.getItem('token');
   if (!isOpen) return null;
   const userName = currentUserId;
   const meetingId = selectedMeetup.MeetingId;
@@ -13,9 +14,12 @@ const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
 
   const registerMU = async () => {
     try {
-      const url = API_URL_BASE + "/register";
+      const url = `${API_URL_BASE}/register`;
       console.log("URL", url);
-      const response = await axios.post(url, { meetingId });
+      const response = await axios.post(url, { meetingId },  {
+  headers: {
+    Authorization: Bearer ${token}
+  });
       console.log("response", response);
       const data = response.data.data.Items;
       setRegisterStatus(
@@ -34,10 +38,13 @@ const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
 
   const unRegisterMU = async () => {
     try {
-      const url = API_URL_BASE + "/register";
+      const url = `${API_URL_BASE}/register`;
       console.log("URL", url);
       const response = await axios.delete(url, {
-        data: { meetingId },
+        data: { meetingId },  {
+  headers: {
+    Authorization: Bearer ${token}
+  }
       });
       console.log("response", response);
       const data = response.data.data.Items;
