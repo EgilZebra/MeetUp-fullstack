@@ -44,7 +44,8 @@ const LoginForm = () => {
       if (response.ok) {
         const data = await response.json(); // Get the response data
         console.log("Login successful, received data:", data);
-        localStorage.setItem('token', data.token, data.username ); // Store token in localStorage
+        localStorage.setItem('token', data.token ); // Store token in localStorage
+        localStorage.setItem('username', data.username ); 
         toast.success('Account Login successful');
         setTimeout(() => {
          GoTo('/profile');
