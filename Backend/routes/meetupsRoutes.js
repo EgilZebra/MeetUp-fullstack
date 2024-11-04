@@ -10,10 +10,8 @@ router.get("/", async (req, res) => {
       TableName: process.env.TABLE_NAME_MEETINGS,
     });
 
-<<<<<<< HEAD
     /**
-=======
->>>>>>> main
+
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
 
