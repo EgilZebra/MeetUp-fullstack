@@ -11,6 +11,9 @@ const Overlay = ({ isOpen, selectedMeetup, onClose }) => {
   const meetingId = selectedMeetup.MeetingId;
   const [registerStatus, setRegisterStatus] = useState(null);
   const [unregisterStatus, setUnregisterStatus] = useState(null);
+  //const [isMUFUll, setIsMUFull] = useState(false);
+  const isEventFull =
+    selectedMeetup.participants.length < selectedMeetup.capacity ? false : true;
 
   const registerMU = async () => {
     try {
@@ -85,6 +88,7 @@ const Overlay = ({ isOpen, selectedMeetup, onClose }) => {
       {console.log("selected MU", selectedMeetup)}
       <div className="selectedMU-overlay-content">
         <h2>Name: {selectedMeetup.name}</h2>
+
         <p>
           <strong>Start-time:</strong> {selectedMeetup.starttime}
         </p>
@@ -100,7 +104,19 @@ const Overlay = ({ isOpen, selectedMeetup, onClose }) => {
         <p>
           <strong>Participants:</strong> {selectedMeetup.participants}
         </p>
-        <button onClick={() => registerMU(meetingId)}>Anmäl mig</button>
+        {isEventFull ? (
+          <button disabled className="button-registerMU">
+            Event Fullt
+          </button>
+        ) : (
+          <button
+            className="button-registerMU"
+            onClick={() => registerMU(meetingId)}
+          >
+            Anmäl mig
+          </button>
+        )}
+
         <button onClick={() => unRegisterMU(meetingId)}>Avanmäl mig</button>
         <button onClick={onClose}>Close</button>
         {registerStatus && <p className="status-message">{registerStatus}</p>}

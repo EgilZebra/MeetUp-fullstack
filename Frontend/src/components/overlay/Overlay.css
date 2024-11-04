@@ -38,3 +38,7 @@
 .selectedMU-overlay-content button:hover {
   background-color: #0056b3;
 }
+
+.selectedMU-overlay .button-registerMU[disabled] {
+  background-color: grey;
+}
