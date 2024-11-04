@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.VITE_API_URL : process.env.VITE_API_URL ;
 
 const SignupForm = () => {
+  const GoTo = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     
@@ -28,7 +31,7 @@ const SignupForm = () => {
       password: formData.password 
     };
     try {
-      const response = await fetch(`${process.env.VITE_API_URL}/signup`, {
+      const response = await fetch(`${API_URL_BASE}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,7 +42,7 @@ const SignupForm = () => {
       if (response.ok) {
         toast.success('Account created successfully');
         setTimeout(() => {
-          window.location.href = `https://egilzebra.github.io/MeetUp-fullstack/Login2`;
+          GoTo('/Login2');
         },1000);
       } else {
         toast.error('Error creating account');
@@ -134,7 +137,7 @@ const SignupForm = () => {
           <button type="submit"> registrera</button>
           <div>
   <p>Already have an account?</p>
-  <button type="button" variant="outline" onClick={() => window.location.href = `https://egilzebra.github.io/MeetUp-fullstack/Login2`}>
+  <button type="button" variant="outline" onClick={() => GoTo('/Login2')}>
     Login
   </button>
 </div>
