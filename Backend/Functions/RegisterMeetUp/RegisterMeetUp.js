@@ -61,7 +61,7 @@ const UnRegisterMU = async ( req, res ) => {
             },
         }
         const queryResults = await db.send(new QueryCommand(queryParams))
-        indexOfName = queryResults.Items[0].participants.indexOf(reqBody.userName);
+        indexOfName = queryResults.Items[0].participants.indexOf(req.user.username);
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -79,7 +79,7 @@ const UnRegisterMU = async ( req, res ) => {
             UpdateExpression: `REMOVE participants[${indexOfName}]`,
             ConditionExpression: 'contains(participants, :userName)',
             ExpressionAttributeValues: {
-                ':userName': reqBody.userName
+                ':userName': req.user.username
             }
         };
         const response = await db.send(new UpdateCommand(updateParams));
