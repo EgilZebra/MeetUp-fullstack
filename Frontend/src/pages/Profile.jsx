@@ -28,7 +28,12 @@ const profile = () => {
     try {
       const url = `${API_URL_BASE}/meetups`;
       console.log("URL", url);
-      const response = await axios.get(url);
+      const response = await axios.get(url,  {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+      });
       console.log("response", response);
       const data = response.data.data.Items;
       console.log(data);
@@ -42,7 +47,12 @@ const profile = () => {
     try {
       const url = API_URL_BASE + "/meetups";
       console.log("URL", url);
-      const response = await axios.post(url, { userId });
+      const response = await axios.post(url, { userId },  {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+      });
       console.log("response", response);
       const data = response.data.data;
       console.log(data);
