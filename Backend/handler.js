@@ -1,11 +1,44 @@
 const express = require("express");
 const serverless = require("serverless-http");
+<<<<<<< HEAD
 const meetupsRoutes = require("./routes/meetupsRoutes");
+=======
+const bodyParser = require('body-parser');
+const signupRouter = require('./Functions/Account/Signup');
+const loginRouter = require('./Functions/Account/Login');
+const createMeetupRouter = require('./Functions/CreateMeetup/CreateMeetup');
+const SearchMeetupRouter = require('./Functions/SearchMeetup/SearchMeetup');
+const authMiddleware = require('./middleware/Auth/Auth');
+require("dotenv").config();
+const cors = require('cors');
+const rateMu = require('./Functions/RateMeetUp/RateRouter');
+const meetupsRoutes = require("./routes/meetupsRoutes");
+const RegisterMU = require('./Functions/RegisterMeetUp/RegisterRoute');
+
+>>>>>>> 1ff044f008f663b14d7743dc03cc42145d36f075
 const app = express();
 require("dotenv").config();
 
 app.use(express.json());
+<<<<<<< HEAD
 
 app.use("/meetups", meetupsRoutes);
 
 module.exports.handler = serverless(app);
+=======
+app.use(bodyParser.json()); // Middleware to parse JSON bodies
+app.use(cors());
+
+// Define routes
+app.use('/signup', signupRouter);
+app.use('/login', loginRouter);
+app.use('/create-meetup', authMiddleware, createMeetupRouter);
+app.use('/Search-meetups', authMiddleware, SearchMeetupRouter);
+app.use('/comment', authMiddleware, rateMu);
+app.use("/meetups", authMiddleware, meetupsRoutes);
+app.use("/register", authMiddleware, RegisterMU);
+
+// Export handler for AWS Lambda
+exports.handler = serverless(app);
+
+>>>>>>> 1ff044f008f663b14d7743dc03cc42145d36f075

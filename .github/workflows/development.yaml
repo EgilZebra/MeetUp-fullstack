@@ -1,0 +1,46 @@
+name: Deploy MeetUp App Pages
+
+on:
+  push:
+    branches:
+      - dev
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4 
+
+      - name: Set up environment
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "VITE_BASE=/" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/dev" ]; then
+            echo "VITE_BASE=/MeetUp-fullstack" >> $GITHUB_ENV
+          fi
+
+      - name: Install modules
+        run: npm install
+        working-directory: Frontend
+      - name: Build dist
+        run: npm run build
+        working-directory: Frontend
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Debug Environment Variables
+        run: printenv
+      - name: Upload dist folder
+        uses: actions/upload-pages-artifact@v1
+        with: 
+          path: './Frontend/dist'
+      - name: Deploy to Github pages
+        id: deployment
+        uses: actions/deploy-pages@v1

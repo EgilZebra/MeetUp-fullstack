@@ -1,0 +1,45 @@
+name: Deploy MeetUp App S3
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+
+    - name: Set up environment
+      run: |
+        if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+          echo "VITE_BASE=/" >> $GITHUB_ENV
+        elif [ "${{ github.ref }}" == "refs/heads/dev" ]; then
+          echo "VITE_BASE=//MeetUp-fullstack" >> $GITHUB_ENV
+        fi
+
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install modules
+      run: npm install
+      working-directory: Frontend
+    - name: Build dist
+      run: npm run build
+      working-directory: Frontend
+      env:
+        VITE_API_URL: ${{ secrets.VITE_API_URL }}
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-north-1
+
+    - name: Deploy static site to S3 bucket
+      run: aws s3 sync dist/ s3://meetup-fullstack --delete
+      working-directory: Frontend
