@@ -1,5 +1,6 @@
 const express = require("express");
 const serverless = require("serverless-http");
+<<<<<<< HEAD
 const bodyParser = require('body-parser');
 const signupRouter = require('./Functions/Account/Signup');
 const loginRouter = require('./Functions/Account/Login');
@@ -12,9 +13,14 @@ const rateMu = require('./Functions/RateMeetUp/RateRouter');
 const meetupsRoutes = require("./routes/meetupsRoutes");
 const RegisterMU = require('./Functions/RegisterMeetUp/RegisterRoute');
 
+=======
+const meetupsRoutes = require("./routes/meetupsRoutes");
+>>>>>>> main
 const app = express();
+require("dotenv").config();
 
 app.use(express.json());
+<<<<<<< HEAD
 app.use(bodyParser.json()); // Middleware to parse JSON bodies
 app.use(cors());
 
@@ -30,3 +36,9 @@ app.use("/register", authMiddleware, RegisterMU);
 // Export handler for AWS Lambda
 exports.handler = serverless(app);
 
+=======
+
+app.use("/meetups", meetupsRoutes);
+
+module.exports.handler = serverless(app);
+>>>>>>> main

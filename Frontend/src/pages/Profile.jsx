@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import AllMU from "../components/Allmu/AllMU";
 import MyMU from "../components/myMU/MyMU";
 import SearchMU from "../components/searchMU/SearchMU";
@@ -88,37 +89,78 @@ const profile = () => {
       <div className="profile--menu">
         <button
           className={activeButton === "Min Profil" ? "profile--active" : ""}
+=======
+import React, { useState } from "react";
+import AllMU from "../components/allMU/AllMU";
+import MyMU from "../components/myMU/MyMU";
+import SearchMU from "../components/searchMU/SearchMU";
+import CreateMU from "../components/forms/createMU/CreateMU";
+import "./style/Profile.css";
+
+const UserProfile = () => {
+  const [activeButton, setActiveButton] = useState("Min Profil");
+
+  return (
+    <div className="userProfile-wrapper">
+      <div className="userProfile-personalInfo">
+        <h1>username</h1>
+        <p>eventuell lägga till övrig personalInfo</p>
+        <button className="userProfile-personalInfo__logout">Logga ut</button>
+      </div>
+
+      <div className="userProfile-menu">
+        <button
+          className={activeButton === "Min Profil" ? "active" : ""}
+>>>>>>> main
           onClick={() => setActiveButton("Min Profil")}
         >
           Min Profil
         </button>
+<<<<<<< HEAD
         <button
           className={activeButton === "Sök Meetups" ? "profile--active" : ""}
           onClick={() => {
             setActiveButton("Sök Meetups");
           }}
+=======
+
+        <button
+          className={activeButton === "Sök Meetups" ? "active" : ""}
+          onClick={() => setActiveButton("Sök Meetups")}
+>>>>>>> main
         >
           Sök Meetups
         </button>
         <button
+<<<<<<< HEAD
           className={activeButton === "Alla Meetups" ? "profile--active" : ""}
           onClick={() => {
             setActiveButton("Alla Meetups");
             // GoTo('/AllMU');
           }}
+=======
+          className={activeButton === "Alla Meetups" ? "active" : ""}
+          onClick={() => setActiveButton("Alla Meetups")}
+>>>>>>> main
         >
           Alla Meetups
         </button>
         <button
+<<<<<<< HEAD
           className={activeButton === "Skapa Meetup" ? "profile--active" : ""}
           onClick={() => {
             setActiveButton("Skapa Meetup");
           }}
+=======
+          className={activeButton === "Skapa Meetup" ? "active" : ""}
+          onClick={() => setActiveButton("Skapa Meetup")}
+>>>>>>> main
         >
           Skapa Meetup
         </button>
       </div>
 
+<<<<<<< HEAD
       <div className="profile-content">
         {activeButton === "Min Profil" && (
           <div className="profile-content__profile">
@@ -205,8 +247,36 @@ const profile = () => {
           currentUserId={currentUserId}
         />
       )}
+=======
+      <div className="userProfile-content">
+        {activeButton === "Min Profil" && (
+          <div className="userProfile-content__profile">
+            <MyMU />
+          </div>
+        )}
+        {activeButton === "Sök Meetups" && (
+          <div className="userProfile-content__searchMUs">
+            <SearchMU />
+          </div>
+        )}
+        {activeButton === "Alla Meetups" && (
+          <div className="userProfile-content__listMUs">
+            <AllMU />
+          </div>
+        )}
+        {activeButton === "Skapa Meetup" && (
+          <div className="userProfile-content__createMU">
+            <CreateMU />
+          </div>
+        )}
+      </div>
+>>>>>>> main
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default profile;
+=======
+export default UserProfile;
+>>>>>>> main
