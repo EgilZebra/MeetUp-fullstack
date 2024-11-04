@@ -24,16 +24,6 @@ router.get("/", async (req, res) => {
     res.status(200).json({
       success: true,
       data: result,
-=======
-      const meetupDate = new Date(meetup.date);
-      meetupDate.setHours(0, 0, 0, 0);
-      return meetupDate >= currentDate;
-    });
-
-    res.status(200).json({
-      success: true,
-      data: upcomingMeetups,
->>>>>>> main
     });
   } catch (error) {
     console.error("Error fetching meetups:", error);
