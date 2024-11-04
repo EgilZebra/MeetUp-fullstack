@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 .userProfile-wrapper {
   display: flex;
   flex-direction: column;
@@ -26,19 +26,4 @@
   color: #fff;
   font-weight: bold;
   text-decoration: underline;
-=======
-.profile--wrapper {
-  background-color: white;
-  color: black;
-}
-
-.profile--wrapper .profile--menu button {
-  background-color: black;
-  color: white;
-}
-
-.profile--wrapper .profile--menu button.profile--active {
-  background-color: green;
-  color: white;
->>>>>>> 1ff044f008f663b14d7743dc03cc42145d36f075
 }
