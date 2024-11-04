@@ -1,14 +1,18 @@
 import { useState } from "react";
 import SearchBar from "@/components/ui/Searchbar";
-const API_URL_BASE = process.env.VITE_API_URL == undefined
-   ? import.meta.env.VITE_API_URL
+import Overlay from "../components/overlay/Overlay";
+const API_URL_BASE =
+  process.env.VITE_API_URL == undefined
+    ? import.meta.env.VITE_API_URL
     : process.env.VITE_API_URL;
 const Search = () => {
-  
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+  const [selectedData, setSelectedData] = useState(null); //
+
   const [results, setResults] = useState([]); // State to store search results
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   const handleSearch = async (searchTerm) => {
     console.log("Searching for:", searchTerm);
     setLoading(true);
@@ -18,12 +22,13 @@ const Search = () => {
       const response = await fetch(
         `${API_URL_BASE}/Search-meetups?query=${encodeURIComponent(
           searchTerm
-        )}`,  {
+        )}`,
+        {
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
-      }
       );
 
       if (!response.ok) {
@@ -54,22 +59,46 @@ const Search = () => {
     }
   };
 
+  const handleMoreInfoClick = (data) => {
+    setSelectedData(data);
+    console.log("data", data);
+    setIsOverlayOpen(true);
+  };
+
+  const closeOverlay = () => {
+    setIsOverlayOpen(false);
+    setSelectedData(null);
+  };
+
   return (
-    <div>
-      <h1>Search Meetups</h1>
-      <SearchBar placeholder="Search for meetups..." onSearch={handleSearch} />
-      {loading && <p>Loading...</p>} {/* Display loading state */}
-      {error && <p>Error: {error}</p>} {/* Display error state */}
-      <ul>
-        {results.map((result) => (
-          <li key={result.MeetingId}>
-            {result.name} - {result.city} - {result.starttime}{" "}
-            {/* Adjust to display other properties as needed */}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <div>
+        <h1>Search Meetups</h1>
+        <SearchBar
+          placeholder="Search for meetups..."
+          onSearch={handleSearch}
+        />
+        {loading && <p>Loading...</p>} {/* Display loading state */}
+        {error && <p>Error: {error}</p>} {/* Display error state */}
+        <ul>
+          {results.map((result) => (
+            <li key={result.MeetingId}>
+              {result.name} - {result.city} - {result.starttime} -{" "}
+              <button onClick={() => handleMoreInfoClick(result)}>
+                More Info
+              </button>
+              {/* Adjust to display other properties as needed */}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <Overlay
+        isOpen={isOverlayOpen}
+        selectedMeetup={selectedData}
+        onClose={closeOverlay}
+      />
+    </>
   );
-}
+};
 
 export default Search;

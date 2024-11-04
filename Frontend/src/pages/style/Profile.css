@@ -1,6 +1,9 @@
 .profile--wrapper {
   background-color: white;
   color: black;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .profile--wrapper .profile--menu button {
@@ -11,4 +14,6 @@
 .profile--wrapper .profile--menu button.profile--active {
   background-color: green;
   color: white;
+}
+.profile--wrapper .userProfile-personalInfo__logout {
 }

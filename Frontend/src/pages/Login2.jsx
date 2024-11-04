@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
-const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.VITE_API_URL : process.env.VITE_API_URL ;
+import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+const API_URL_BASE =
+  process.env.VITE_API_URL == undefined
+    ? import.meta.env.VITE_API_URL
+    : process.env.VITE_API_URL;
 
 const LoginForm = () => {
   const GoTo = useNavigate();
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
+    username: "",
+    password: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -17,43 +20,42 @@ const LoginForm = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
   // Handle submit
   const handleSubmitLogin = async () => {
-    const payLoad = { 
-      username: formData.username, 
-      password: formData.password 
+    const payLoad = {
+      username: formData.username,
+      password: formData.password,
     };
     console.log("Payload to send:", payLoad);
-    
+
     try {
-      console.log(API_URL_BASE)
+      console.log(API_URL_BASE);
       const response = await fetch(`${API_URL_BASE}/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(payLoad),
       });
 
       console.log("Response status:", response.status);
-      
+
       if (response.ok) {
         const data = await response.json(); // Get the response data
         console.log("Login successful, received data:", data);
-        localStorage.setItem('token', data.token ); // Store token in localStorage
-        localStorage.setItem('username', data.username ); 
-        toast.success('Account Login successful');
+        localStorage.setItem("token", data.token); // Store token in localStorage
+        localStorage.setItem("username", data.username);
+        toast.success("Account Login successful");
         setTimeout(() => {
-         GoTo('/profile');
-        },1000);
+          GoTo("/profile");
+        }, 1000);
       } else {
-        toast.error('Error Login account');
-        console.log(response.error)
-
+        toast.error("Error Login account");
+        console.log(response.error);
       }
     } catch (error) {
       console.error("Caught error:", error);
@@ -63,24 +65,24 @@ const LoginForm = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.username.trim()) {
-      newErrors.username = 'Username is required';
+      newErrors.username = "Username is required";
     }
-    
+
     if (!formData.password) {
-      newErrors.password = 'Password is required';
+      newErrors.password = "Password is required";
     } else if (formData.password.length < 3) {
-      newErrors.password = 'Password must be at least 3 characters';
+      newErrors.password = "Password must be at least 3 characters";
     }
-    
+
     return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = validateForm();
-    
+
     if (Object.keys(newErrors).length === 0) {
       await handleSubmitLogin(); // Await the promise
     } else {
@@ -101,9 +103,11 @@ const LoginForm = () => {
               type="text"
               value={formData.username}
               onChange={handleChange}
-              className={errors.username ? 'error' : ''}
+              className={errors.username ? "error" : ""}
             />
-            {errors.username && <span className="error-message">{errors.username}</span>}
+            {errors.username && (
+              <span className="error-message">{errors.username}</span>
+            )}
           </div>
 
           <div className="form-group">
@@ -114,21 +118,20 @@ const LoginForm = () => {
               type="password"
               value={formData.password}
               onChange={handleChange}
-              className={errors.password ? 'error' : ''}
+              className={errors.password ? "error" : ""}
             />
-            {errors.password && <span className="error-message">{errors.password}</span>}
+            {errors.password && (
+              <span className="error-message">{errors.password}</span>
+            )}
           </div>
 
           <button type="submit">Login</button>
           <div>
-
-  <p>Already have an account?</p>
-  <button type="button" variant="outline" onClick={() => GoTo('/signup2')}>
-    Sign up Here
-  </button>
-</div>
-
-
+            <p>Already have an account?</p>
+            <button type="button" variant="outline" onClick={() => GoTo("/")}>
+              Sign up Here
+            </button>
+          </div>
         </form>
       </div>
 

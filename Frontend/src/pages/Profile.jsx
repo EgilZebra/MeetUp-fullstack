@@ -1,8 +1,5 @@
-import AllMU from "../components/Allmu/AllMU";
-import MyMU from "../components/myMU/MyMU";
-import SearchMU from "../components/searchMU/SearchMU";
-import CreateMU from "../components/forms/createMU/CreateMU";
 import Search from "./Search";
+import "./style/Page.css";
 import "./style/Profile.css";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
@@ -100,143 +97,74 @@ const profile = () => {
   };
 
   return (
-    <div className="profile--wrapper">
-      <div className="profile--personalInfo">
-        <h1>{localStorage.getItem("username")}</h1>
-        <button
-          className="userProfile-personalInfo__logout"
-          onClick={() => {
-            GoTo("/Login2");
-            localStorage.clear();
-          }}
-        >
-          Logga ut
-        </button>
-      </div>
+    <div className="page-wrapper">
+      <div className="profile--wrapper">
+        <div className="profile--personalInfo">
+          <h1>
+            {localStorage.getItem("username")} |
+            <button
+              className="userProfile-personalInfo__logout"
+              onClick={() => {
+                localStorage.clear();
+                GoTo("/Login2");
+              }}
+            >
+              Logga ut
+            </button>
+          </h1>
+        </div>
 
-      <div className="profile--menu">
-        <button
-          className={activeButton === "Min Profil" ? "profile--active" : ""}
-          onClick={() => setActiveButton("Min Profil")}
-        >
-          Min Profil
-        </button>
-        <button
-          className={activeButton === "Sök Meetups" ? "profile--active" : ""}
-          onClick={() => {
-            setActiveButton("Sök Meetups");
-          }}
-        >
-          Sök Meetups
-        </button>
-        <button
-          className={activeButton === "Alla Meetups" ? "profile--active" : ""}
-          onClick={() => {
-            setActiveButton("Alla Meetups");
-            // GoTo('/AllMU');
-          }}
-        >
-          Alla Meetups
-        </button>
-        <button
-          className={activeButton === "Skapa Meetup" ? "profile--active" : ""}
-          onClick={() => {
-            setActiveButton("Skapa Meetup");
-          }}
-        >
-          Skapa Meetup
-        </button>
-      </div>
+        <div className="profile--menu">
+          <button
+            className={activeButton === "Min Profil" ? "profile--active" : ""}
+            onClick={() => setActiveButton("Min Profil")}
+          >
+            Min Profil
+          </button>
+          <button
+            className={activeButton === "Sök Meetups" ? "profile--active" : ""}
+            onClick={() => {
+              setActiveButton("Sök Meetups");
+            }}
+          >
+            Sök Meetups
+          </button>
+          <button
+            className={activeButton === "Alla Meetups" ? "profile--active" : ""}
+            onClick={() => {
+              setActiveButton("Alla Meetups");
+              // GoTo('/AllMU');
+            }}
+          >
+            Alla Meetups
+          </button>
+          <button
+            className={activeButton === "Skapa Meetup" ? "profile--active" : ""}
+            onClick={() => {
+              setActiveButton("Skapa Meetup");
+            }}
+          >
+            Skapa Meetup
+          </button>
+        </div>
 
-      <div className="profile-content">
-        {activeButton === "Min Profil" && (
-          <div className="profile-content__profile">
-            {pastEvents && pastEvents.length > 0 ? (
-              <div>
-                <h2>Past Events</h2>
-                <table className="profile-table">
-                  <thead>
-                    <tr>
-                      <th>Namn</th>
-                      <th>Plats</th>
-                      <th>Start-tid</th>
-                      <th>Mer Info</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {pastEvents.map((meetup) => (
-                      <tr key={meetup.MeetingId}>
-                        <td>{meetup.name}</td>
-                        <td>{meetup.location}</td>
-                        <td>{meetup.starttime}</td>
-                        <td>
-                          <button onClick={() => handleMoreInfoClick(meetup)}>
-                            Mer information
-                          </button>
-                        </td>
+        <div className="profile-content">
+          {activeButton === "Min Profil" && (
+            <div className="profile-content__profile">
+              {pastEvents && pastEvents.length > 0 ? (
+                <div>
+                  <h2>Past Events</h2>
+                  <table className="profile-table">
+                    <thead>
+                      <tr>
+                        <th>Namn</th>
+                        <th>Plats</th>
+                        <th>Start-tid</th>
+                        <th>Mer Info</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <p>No past events available.</p>
-            )}
-
-            {futureEvents && futureEvents.length > 0 ? (
-              <div>
-                <h2>Future Events</h2>
-                <table className="profile-table">
-                  <thead>
-                    <tr>
-                      <th>Namn</th>
-                      <th>Plats</th>
-                      <th>Start-tid</th>
-                      <th>Mer Info</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {futureEvents.map((meetup) => (
-                      <tr key={meetup.MeetingId}>
-                        <td>{meetup.name}</td>
-                        <td>{meetup.location}</td>
-                        <td>{meetup.starttime}</td>
-                        <td>
-                          <button onClick={() => handleMoreInfoClick(meetup)}>
-                            Mer information
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <p>No future events available.</p>
-            )}
-          </div>
-        )}
-        {activeButton === "Sök Meetups" && (
-          <div className="profile-content__searchMUs">
-            <Search />
-          </div>
-        )}
-        {activeButton === "Alla Meetups" && (
-          <div className="profile-content__listMUs">
-            {meetupsData && meetupsData.length > 0 ? (
-              <table className="profile-table">
-                <thead>
-                  <tr>
-                    <th>Namn</th>
-                    <th>Plats</th>
-                    <th>Start-tid</th>
-                    <th>Mer Info</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {meetupsData &&
-                    meetupsData.map((meetup) => {
-                      return (
+                    </thead>
+                    <tbody>
+                      {pastEvents.map((meetup) => (
                         <tr key={meetup.MeetingId}>
                           <td>{meetup.name}</td>
                           <td>{meetup.location}</td>
@@ -247,28 +175,103 @@ const profile = () => {
                             </button>
                           </td>
                         </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
-            ) : (
-              <p>No meetups available.</p>
-            )}
-          </div>
-        )}
-        {activeButton === "Skapa Meetup" && (
-          <div className="profile-content__createMU">
-            <CreateForm />
-          </div>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <p>No past events available.</p>
+              )}
+
+              {futureEvents && futureEvents.length > 0 ? (
+                <div>
+                  <h2>Future Events</h2>
+                  <table className="profile-table">
+                    <thead>
+                      <tr>
+                        <th>Namn</th>
+                        <th>Plats</th>
+                        <th>Start-tid</th>
+                        <th>Mer Info</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {futureEvents.map((meetup) => (
+                        <tr key={meetup.MeetingId}>
+                          <td>{meetup.name}</td>
+                          <td>{meetup.location}</td>
+                          <td>{meetup.starttime}</td>
+                          <td>
+                            <button onClick={() => handleMoreInfoClick(meetup)}>
+                              Mer information
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <p>No future events available.</p>
+              )}
+            </div>
+          )}
+          {activeButton === "Sök Meetups" && (
+            <div className="profile-content__searchMUs">
+              <Search />
+            </div>
+          )}
+          {activeButton === "Alla Meetups" && (
+            <div className="profile-content__listMUs">
+              {meetupsData && meetupsData.length > 0 ? (
+                <table className="profile-table">
+                  <thead>
+                    <tr>
+                      <th>Namn</th>
+                      <th>Plats</th>
+                      <th>Start-tid</th>
+                      <th>Mer Info</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {meetupsData &&
+                      meetupsData.map((meetup) => {
+                        return (
+                          <tr key={meetup.MeetingId}>
+                            <td>{meetup.name}</td>
+                            <td>{meetup.location}</td>
+                            <td>{meetup.starttime}</td>
+                            <td>
+                              <button
+                                onClick={() => handleMoreInfoClick(meetup)}
+                              >
+                                Mer information
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              ) : (
+                <p>No meetups available.</p>
+              )}
+            </div>
+          )}
+          {activeButton === "Skapa Meetup" && (
+            <div className="profile-content__createMU">
+              <CreateForm />
+            </div>
+          )}
+        </div>
+        {isOverlayOpen && (
+          <Overlay
+            isOpen={isOverlayOpen}
+            selectedMeetup={selectedMeetup}
+            onClose={closeOverlay}
+          />
         )}
       </div>
-      {isOverlayOpen && (
-        <Overlay
-          isOpen={isOverlayOpen}
-          selectedMeetup={selectedMeetup}
-          onClose={closeOverlay}
-        />
-      )}
     </div>
   );
 };
