@@ -79,7 +79,7 @@ const UnRegisterMU = async ( req, res ) => {
             UpdateExpression: `REMOVE participants[${indexOfName}]`,
             ConditionExpression: 'contains(participants, :userName)',
             ExpressionAttributeValues: {
-                ':userName': reqBody.userName
+                ':userName': req.user.username
             }
         };
         const response = await db.send(new UpdateCommand(updateParams));
