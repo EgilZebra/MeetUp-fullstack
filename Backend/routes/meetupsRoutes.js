@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-=======
-require("dotenv").config();
->>>>>>> main
 const express = require("express");
 const { db } = require("../services/db");
 const { GetCommand } = require("@aws-sdk/lib-dynamodb");
 const router = express.Router();
-<<<<<<< HEAD
 require("dotenv").config();
-=======
->>>>>>> main
 
 router.get("/", async (req, res) => {
   try {
@@ -25,7 +18,6 @@ router.get("/", async (req, res) => {
     currentDate.setHours(0, 0, 0, 0);
 
     const upcomingMeetups = result.Items.filter((meetup) => {
-<<<<<<< HEAD
       const meetupDate = new Date(meetup.starttime);
       meetupDate.setHours(0, 0, 0, 0);
       return meetupDate >= currentDate;

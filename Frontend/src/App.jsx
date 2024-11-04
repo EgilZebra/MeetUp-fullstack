@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
 import Signup2 from "./pages/Signup2";
 import Login2 from "./pages/Login2";
@@ -30,35 +29,3 @@ function App() {
 }
 
 export default App;
-=======
-import {
-  Route,
-  createBrowserRouter,
-  createRoutesFromElements,
-  RouterProvider,
-} from "react-router-dom";
-import { LandingPage } from "./pages/LandingPage";
-import ProfilePage from "./pages/Profile";
-import "./App.css";
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route
-    // errorElement={<ErrorPage />}
-    >
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/profile" element={<ProfilePage />} />
-    </Route>
-  )
-);
-
-function App() {
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
-}
-
-export default App;
->>>>>>> main
