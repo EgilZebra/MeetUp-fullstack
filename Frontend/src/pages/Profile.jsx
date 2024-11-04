@@ -10,11 +10,12 @@ import axios from "axios";
 import Overlay from "../components/overlay/Overlay";
 import CreateForm from "./CreateMeet";
 
-const API_URL_BASE = process.env.VITE_API_URL == undefined
-   ? import.meta.env.VITE_API_URL
+const API_URL_BASE =
+  process.env.VITE_API_URL == undefined
+    ? import.meta.env.VITE_API_URL
     : process.env.VITE_API_URL;
 
-const currentUserId = localStorage.getItem('username');
+const currentUserId = localStorage.getItem("username");
 
 const profile = () => {
   const GoTo = useNavigate();
@@ -23,16 +24,16 @@ const profile = () => {
   const [myMeetupsData, setMyMeetupsData] = useState([]);
   const [selectedMeetup, setSelectedMeetup] = useState(null);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   const fetchMeetups = async () => {
     try {
       const url = `${API_URL_BASE}/meetups`;
       console.log("URL", url);
-      const response = await axios.get(url,  {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
+      const response = await axios.get(url, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
       console.log("response", response);
       const data = response.data.data.Items;
@@ -47,12 +48,16 @@ const profile = () => {
     try {
       const url = API_URL_BASE + "/meetups";
       console.log("URL", url);
-      const response = await axios.post(url, { userId },  {
+      const response = await axios.post(
+        url,
+        { userId },
+        {
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
       console.log("response", response);
       const data = response.data.data;
       console.log(data);
@@ -89,10 +94,16 @@ const profile = () => {
   return (
     <div className="profile--wrapper">
       <div className="profile--personalInfo">
-        <h1>{localStorage.getItem('username')}</h1>
-        <button className="userProfile-personalInfo__logout" onClick={() => {GoTo('/Login2'); localStorage.clear()}}>Logga ut</button>
-        <button className="userProfile-personalInfo__logout" onClick={() => {GoTo('/Login2'); localStorage.clear()}}>Logga ut</button>
-
+        <h1>{localStorage.getItem("username")}</h1>
+        <button
+          className="userProfile-personalInfo__logout"
+          onClick={() => {
+            GoTo("/Login2");
+            localStorage.clear();
+          }}
+        >
+          Logga ut
+        </button>
       </div>
 
       <div className="profile--menu">
@@ -136,8 +147,9 @@ const profile = () => {
               <table className="profile-table">
                 <thead>
                   <tr>
-                    <th>id</th>
-                    <th>Name</th>
+                    <th>Namn</th>
+                    <th>Plats</th>
+                    <th>Start-tid</th>
                     <th>Mer Info</th>
                   </tr>
                 </thead>
@@ -146,8 +158,9 @@ const profile = () => {
                     myMeetupsData.map((meetup) => {
                       return (
                         <tr key={meetup.MeetingId}>
-                          <td>{meetup.MeetingId}</td>
                           <td>{meetup.name}</td>
+                          <td>{meetup.location}</td>
+                          <td>{meetup.starttime}</td>
                           <td>
                             <button onClick={() => handleMoreInfoClick(meetup)}>
                               Mer information
@@ -174,8 +187,9 @@ const profile = () => {
               <table className="profile-table">
                 <thead>
                   <tr>
-                    <th>MeetingId</th>
-                    <th>Name</th>
+                    <th>Namn</th>
+                    <th>Plats</th>
+                    <th>Start-tid</th>
                     <th>Mer Info</th>
                   </tr>
                 </thead>
@@ -184,8 +198,9 @@ const profile = () => {
                     meetupsData.map((meetup) => {
                       return (
                         <tr key={meetup.MeetingId}>
-                          <td>{meetup.MeetingId}</td>
                           <td>{meetup.name}</td>
+                          <td>{meetup.location}</td>
+                          <td>{meetup.starttime}</td>
                           <td>
                             <button onClick={() => handleMoreInfoClick(meetup)}>
                               Mer information
