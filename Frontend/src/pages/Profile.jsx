@@ -25,6 +25,13 @@ const profile = () => {
   const [selectedMeetup, setSelectedMeetup] = useState(null);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   const token = localStorage.getItem("token");
+  const currentDate = new Date();
+  const pastEvents = myMeetupsData.filter(
+    (meetup) => new Date(meetup.starttime) < currentDate
+  );
+  const futureEvents = myMeetupsData.filter(
+    (meetup) => new Date(meetup.starttime) >= currentDate
+  );
 
   const fetchMeetups = async () => {
     try {
@@ -144,36 +151,68 @@ const profile = () => {
       <div className="profile-content">
         {activeButton === "Min Profil" && (
           <div className="profile-content__profile">
-            {myMeetupsData && myMeetupsData.length > 0 ? (
-              <table className="profile-table">
-                <thead>
-                  <tr>
-                    <th>Namn</th>
-                    <th>Plats</th>
-                    <th>Start-tid</th>
-                    <th>Mer Info</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {myMeetupsData &&
-                    myMeetupsData.map((meetup) => {
-                      return (
-                        <tr key={meetup.MeetingId}>
-                          <td>{meetup.name}</td>
-                          <td>{meetup.location}</td>
-                          <td>{meetup.starttime}</td>
-                          <td>
-                            <button onClick={() => handleMoreInfoClick(meetup)}>
-                              Mer information
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
+            {pastEvents && pastEvents.length > 0 ? (
+              <div>
+                <h2>Past Events</h2>
+                <table className="profile-table">
+                  <thead>
+                    <tr>
+                      <th>Namn</th>
+                      <th>Plats</th>
+                      <th>Start-tid</th>
+                      <th>Mer Info</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {pastEvents.map((meetup) => (
+                      <tr key={meetup.MeetingId}>
+                        <td>{meetup.name}</td>
+                        <td>{meetup.location}</td>
+                        <td>{meetup.starttime}</td>
+                        <td>
+                          <button onClick={() => handleMoreInfoClick(meetup)}>
+                            Mer information
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             ) : (
-              <p>You have not registired to any MU yet.</p>
+              <p>No past events available.</p>
+            )}
+
+            {futureEvents && futureEvents.length > 0 ? (
+              <div>
+                <h2>Future Events</h2>
+                <table className="profile-table">
+                  <thead>
+                    <tr>
+                      <th>Namn</th>
+                      <th>Plats</th>
+                      <th>Start-tid</th>
+                      <th>Mer Info</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {futureEvents.map((meetup) => (
+                      <tr key={meetup.MeetingId}>
+                        <td>{meetup.name}</td>
+                        <td>{meetup.location}</td>
+                        <td>{meetup.starttime}</td>
+                        <td>
+                          <button onClick={() => handleMoreInfoClick(meetup)}>
+                            Mer information
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p>No future events available.</p>
             )}
           </div>
         )}
