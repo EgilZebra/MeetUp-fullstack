@@ -7,13 +7,17 @@ const API_URL_BASE =
 
 const Overlay = ({ isOpen, selectedMeetup, onClose }) => {
   const token = localStorage.getItem("token");
+  const username = localStorage.getItem("username");
   if (!isOpen) return null;
   const meetingId = selectedMeetup.MeetingId;
   const [registerStatus, setRegisterStatus] = useState(null);
   const [unregisterStatus, setUnregisterStatus] = useState(null);
-  //const [isMUFUll, setIsMUFull] = useState(false);
   const isEventFull =
     selectedMeetup.participants.length < selectedMeetup.capacity ? false : true;
+
+  const isUserRegistered = selectedMeetup.participants.some(
+    (participant) => participant === username
+  );
 
   const registerMU = async () => {
     try {
@@ -118,7 +122,18 @@ const Overlay = ({ isOpen, selectedMeetup, onClose }) => {
           </button>
         )}
 
-        <button onClick={() => unRegisterMU(meetingId)}>Avanmäl mig</button>
+        {isUserRegistered ? (
+          <button className="button-registerMU">Avanmäl mig</button>
+        ) : (
+          <button
+            disabled
+            className="button-registerMU"
+            onClick={() => unRegisterMU(meetingId)}
+          >
+            Du är inte anmäld
+          </button>
+        )}
+
         <button onClick={onClose}>Close</button>
         {registerStatus && <p className="status-message">{registerStatus}</p>}
         {unregisterStatus && (
