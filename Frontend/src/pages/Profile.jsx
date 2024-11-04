@@ -80,7 +80,7 @@ const profile = () => {
     <div className="profile--wrapper">
       <div className="profile--personalInfo">
         <h1>{localStorage.getItem('username')}</h1>
-        <button className="userProfile-personalInfo__logout" onClick={() => {GoTo('/Login2')}}>Logga ut</button>
+        <button className="userProfile-personalInfo__logout" onClick={() => {GoTo('/Login2'); localStorage.clear()}}>Logga ut</button>
 
       </div>
 
