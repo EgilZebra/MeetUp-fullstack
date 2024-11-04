@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SearchBar from "@/components/ui/Searchbar";
-const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.VITE_API_URL : process.env.VITE_API_URL ;
+const API_URL_BASE = process.env.API_URL_BASE;
 const Search = () => {
   
   const [results, setResults] = useState([]); // State to store search results

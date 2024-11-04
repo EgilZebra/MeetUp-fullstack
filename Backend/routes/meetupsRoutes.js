@@ -1,15 +1,8 @@
-<<<<<<< HEAD
-require("dotenv").config();
-=======
->>>>>>> 1ff044f008f663b14d7743dc03cc42145d36f075
 const express = require("express");
 const { db } = require("../services/db");
 const { GetCommand } = require("@aws-sdk/lib-dynamodb");
 const router = express.Router();
-<<<<<<< HEAD
-=======
 require("dotenv").config();
->>>>>>> 1ff044f008f663b14d7743dc03cc42145d36f075
 
 router.get("/", async (req, res) => {
   try {
@@ -18,23 +11,13 @@ router.get("/", async (req, res) => {
     });
 
 <<<<<<< HEAD
-=======
     /**
->>>>>>> 1ff044f008f663b14d7743dc03cc42145d36f075
+=======
+>>>>>>> main
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
 
     const upcomingMeetups = result.Items.filter((meetup) => {
-<<<<<<< HEAD
-      const meetupDate = new Date(meetup.date);
-      meetupDate.setHours(0, 0, 0, 0);
-      return meetupDate >= currentDate;
-    });
-
-    res.status(200).json({
-      success: true,
-      data: upcomingMeetups,
-=======
       const meetupDate = new Date(meetup.starttime);
       meetupDate.setHours(0, 0, 0, 0);
       return meetupDate >= currentDate;
@@ -43,7 +26,16 @@ router.get("/", async (req, res) => {
     res.status(200).json({
       success: true,
       data: result,
->>>>>>> 1ff044f008f663b14d7743dc03cc42145d36f075
+=======
+      const meetupDate = new Date(meetup.date);
+      meetupDate.setHours(0, 0, 0, 0);
+      return meetupDate >= currentDate;
+    });
+
+    res.status(200).json({
+      success: true,
+      data: upcomingMeetups,
+>>>>>>> main
     });
   } catch (error) {
     console.error("Error fetching meetups:", error);
@@ -87,7 +79,6 @@ router.get("/:MeetingId", async (req, res) => {
   }
 });
 <<<<<<< HEAD
-=======
 router.post("/", async (req, res) => {
   const { userId } = req.body;
 
@@ -113,5 +104,6 @@ router.post("/", async (req, res) => {
     });
   }
 });
->>>>>>> 1ff044f008f663b14d7743dc03cc42145d36f075
+=======
+>>>>>>> main
 module.exports = router;

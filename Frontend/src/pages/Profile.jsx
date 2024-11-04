@@ -11,6 +11,7 @@ import Overlay from "../components/overlay/Overlay";
 import CreateForm from "./CreateMeet";
 
 const API_URL_BASE = process.env.VITE_API_URL == undefined
+const API_URL_BASE = process.env.VITE_API_URL == undefined
    ? import.meta.env.VITE_API_URL
     : process.env.VITE_API_URL;
 
@@ -80,6 +81,7 @@ const profile = () => {
     <div className="profile--wrapper">
       <div className="profile--personalInfo">
         <h1>{localStorage.getItem('username')}</h1>
+        <button className="userProfile-personalInfo__logout" onClick={() => {GoTo('/Login2'); localStorage.clear()}}>Logga ut</button>
         <button className="userProfile-personalInfo__logout" onClick={() => {GoTo('/Login2'); localStorage.clear()}}>Logga ut</button>
 
       </div>
@@ -201,7 +203,6 @@ const profile = () => {
           isOpen={isOverlayOpen}
           selectedMeetup={selectedMeetup}
           onClose={closeOverlay}
-          currentUserId={currentUserId}
         />
       )}
     </div>
@@ -209,4 +210,3 @@ const profile = () => {
 };
 
 export default profile;
-
