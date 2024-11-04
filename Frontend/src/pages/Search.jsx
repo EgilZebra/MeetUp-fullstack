@@ -63,7 +63,7 @@ const Search = () => {
       <ul>
         {results.map((result) => (
           <li key={result.MeetingId}>
-            {result.name} - {result.city} - {result.starttime}{" "}
+            {result.name} - {result.host} - {result.city} - {result.starttime}{" "}
             {/* Adjust to display other properties as needed */}
           </li>
         ))}
