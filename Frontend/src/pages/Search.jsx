@@ -18,7 +18,12 @@ const Search = () => {
       const response = await fetch(
         `${API_URL_BASE}/Search-meetups?query=${encodeURIComponent(
           searchTerm
-        )}`
+        )}`,  {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+      }
       );
 
       if (!response.ok) {
