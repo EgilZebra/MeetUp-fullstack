@@ -8,7 +8,7 @@ const Search = () => {
   const [results, setResults] = useState([]); // State to store search results
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const token = localStorage.getItem('token');
   const handleSearch = async (searchTerm) => {
     console.log("Searching for:", searchTerm);
     setLoading(true);
