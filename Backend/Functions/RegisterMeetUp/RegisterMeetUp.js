@@ -41,12 +41,7 @@ const RegisterMU = async ( req, res ) => {
 const UnRegisterMU = async ( req, res ) => { 
 
     const reqBody = req.body;
-    if ( !reqBody.userName ) {
-        res.status(400).json({
-            success: false,
-            error: 'Missing userName in request'
-        })
-    } else if ( !reqBody.meetingId ) {
+    if ( !reqBody.meetingId ) {
         res.status(400).json({
             success: false,
             error: 'Missing meetingId in request'
