@@ -66,4 +66,39 @@ router.get("/:MeetingId", async (req, res) => {
     });
   }
 });
+
+router.post("/", async (req, res) => {
+  const { userId } = req.body;
+
+  if (!userId) {
+    return res.status(400).json({
+      success: false,
+      message: "userId is required",
+    });
+  }
+
+  try {
+    const result = await db.scan({
+      TableName: process.env.TABLE_NAME_MEETINGS,
+    });
+
+    // Filter meetings to include only those where userId is in participants
+    const userMeetups = result.Items.filter(
+      (meetup) => meetup.participants && meetup.participants.includes(userId)
+    );
+
+    res.status(200).json({
+      success: true,
+      data: userMeetups,
+    });
+  } catch (error) {
+    console.error("Error fetching meetups:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieve meetups",
+      error: error.message,
+    });
+  }
+});
+
 module.exports = router;
