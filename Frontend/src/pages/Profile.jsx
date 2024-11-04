@@ -11,7 +11,6 @@ import Overlay from "../components/overlay/Overlay";
 import CreateForm from "./CreateMeet";
 
 const API_URL_BASE = process.env.VITE_API_URL == undefined
-const API_URL_BASE = process.env.VITE_API_URL == undefined
    ? import.meta.env.VITE_API_URL
     : process.env.VITE_API_URL;
 
