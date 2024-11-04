@@ -31,6 +31,7 @@ try {
         TableName: process.env.TABLE_NAME_MEETINGS,
         Item: {
             MeetingId: MeetingId,
+            host: req.user.username,
             city: city,
             location: location,
             starttime: starttime,
