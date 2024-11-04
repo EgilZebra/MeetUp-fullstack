@@ -23,7 +23,7 @@ const profile = () => {
   const [myMeetupsData, setMyMeetupsData] = useState([]);
   const [selectedMeetup, setSelectedMeetup] = useState(null);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
-
+  const token = localStorage.getItem('token');
   const fetchMeetups = async () => {
     try {
       const url = `${API_URL_BASE}/meetups`;
