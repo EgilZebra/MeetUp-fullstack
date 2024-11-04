@@ -1,68 +1,76 @@
 import React, { useState, useEffect } from "react";
 import "./Overlay.css";
-import axios from "axios";
-const API_URL_BASE = (process.env.VITE_API_URL == undefined) ? import.meta.env.VITE_API_URL : process.env.VITE_API_URL;
+const API_URL_BASE =
+  process.env.VITE_API_URL == undefined
+    ? import.meta.env.VITE_API_URL
+    : process.env.VITE_API_URL;
 
-const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
-  const token = localStorage.getItem('token');
+const Overlay = ({ isOpen, selectedMeetup, onClose }) => {
+  const token = localStorage.getItem("token");
+  const userName = localStorage.getItem("username");
+
   if (!isOpen) return null;
-  const userName = currentUserId;
+
   const meetingId = selectedMeetup.MeetingId;
-  console.log("userName", userName);
   const [registerStatus, setRegisterStatus] = useState(null);
   const [unregisterStatus, setUnregisterStatus] = useState(null);
 
   const registerMU = async () => {
     try {
-      const url = `${API_URL_BASE}/register`;
-      console.log("URL", url);
-      const response = await axios.post(
-        url, { meetingId },  
-      { headers: {
-            Authorization: `Bearer ${token}`
-            }
+      const response = await fetch(`${API_URL_BASE}/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          meetingId: meetingId,
+        }),
       });
-      console.log("response", response);
-      const data = response.data.data.Items;
+      const data = await response.json();
+      if (!data.success) {
+        alert(data.message ? data.message : data.error);
+      }
       setRegisterStatus(
         response.status === 200
           ? "Registered successfully"
           : "Failed to register"
       );
-      //console.log(data);
-      // setMeetupsData(data);
+      console.log(data);
       return data;
     } catch (error) {
-      setRegisterStatus("Error unregistering");
-      console.error("Error register meetups:", error);
+      setRegisterStatus("Error registering");
+      console.error("Error:", error);
     }
   };
 
   const unRegisterMU = async () => {
     try {
-      const url = `${API_URL_BASE}/register`;
-      console.log("URL", url);
-      const response = await axios.delete(url, 
-        { data: { meetingId }}, 
-        { headers: {
-              Authorization: `Bearer ${token}`
-          }
-        });
-      console.log("response", response);
-      const data = response.data.data.Items;
+      const response = await fetch(`${API_URL_BASE}/register`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          meetingId: meetingId,
+          userName: userName,
+        }),
+      });
+      const data = await response.json();
+      if (!data.success) {
+        alert(data.message ? data.message : data.error);
+      }
       setUnregisterStatus(
         response.status === 200
           ? "Unregistered successfully"
           : "Failed to unregister"
       );
+      console.log(data);
       return data;
     } catch (error) {
-      setUnregisterStatus(
-        response.status === 200
-          ? "Unregistered successfully"
-          : "Failed to unregister"
-      );
-      console.error("Error unRegister meetups:", error);
+      setUnregisterStatus("Error unregistering");
+      console.error("Error:", error);
     }
   };
 
@@ -76,24 +84,36 @@ const Overlay = ({ isOpen, selectedMeetup, onClose, currentUserId }) => {
     <div className="selectedMU-overlay">
       {console.log("selected MU", selectedMeetup)}
       <div className="selectedMU-overlay-content">
-        <h2>{selectedMeetup.name}</h2>
-        <p>user: {currentUserId}</p>
-        <p>
-          <strong>Date:</strong>{" "}
-        </p>
+        <h2>meetp-name: {selectedMeetup.name}</h2>
         <p>
           <strong>Capacity:</strong> {selectedMeetup.capacity}
         </p>
         <p>
-          <strong>Participants:</strong> {selectedMeetup.participants}
+          <strong>City:</strong> {selectedMeetup.city}
         </p>
-        <button onClick={() => registerMU( meetingId)}>
-          Anmäl mig
-        </button>
-        <button onClick={() => unRegisterMU( meetingId)}>
-          Avanmäl mig
-        </button>
+        <p>
+          <strong>Start Time:</strong> {selectedMeetup.starttime}
+        </p>
+        <p>
+          <strong>End Time:</strong> {selectedMeetup.endtime}
+        </p>
+        <p>
+          <strong>Location:</strong> {selectedMeetup.location}
+        </p>
+        <p>
+          <strong>Host:</strong>
+          {selectedMeetup.host ? selectedMeetup.host : "Not specified"}
+        </p>
+        <p>
+          <strong>Participants:</strong> {selectedMeetup.participants.length}
+        </p>
+
+        <button onClick={registerMU}>Anmäl mig</button>
+
+        <button onClick={unRegisterMU}>Avanmäl mig</button>
+
         <button onClick={onClose}>Close</button>
+
         {registerStatus && <p className="status-message">{registerStatus}</p>}
         {unregisterStatus && (
           <p className="status-message">{unregisterStatus}</p>

@@ -1,4 +1,3 @@
-import AllMU from "../components/Allmu/AllMU";
 import MyMU from "../components/myMU/MyMU";
 import SearchMU from "../components/searchMU/SearchMU";
 import CreateMU from "../components/forms/createMU/CreateMU";
@@ -11,11 +10,12 @@ import Overlay from "../components/overlay/Overlay";
 import CreateForm from "./CreateMeet";
 
 const API_URL_BASE =
-process.env.VITE_API_URL == undefined
-   ? import.meta.env.VITE_API_URL
+  process.env.VITE_API_URL == undefined
+    ? import.meta.env.VITE_API_URL
     : process.env.VITE_API_URL;
 
-const currentUserId = localStorage.getItem('username');
+const currentUserId = localStorage.getItem("username");
+const token = localStorage.getItem("token");
 
 const profile = () => {
   const GoTo = useNavigate();
@@ -29,7 +29,11 @@ const profile = () => {
     try {
       const url = `${API_URL_BASE}/meetups`;
       console.log("URL", url);
-      const response = await axios.get(url);
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("response", response);
       const data = response.data.data.Items;
       console.log(data);
@@ -39,18 +43,27 @@ const profile = () => {
       console.error("Error fetching meetups:", error);
     }
   };
+
   const fetchMyMeetups = async (userId) => {
     try {
-      const url = API_URL_BASE + "/meetups";
+      const url = `${API_URL_BASE}/meetups`;
       console.log("URL", url);
-      const response = await axios.post(url, { userId });
+      const response = await axios.post(
+        url,
+        { userId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log("response", response);
       const data = response.data.data;
       console.log(data);
       setMyMeetupsData(data);
       return data;
     } catch (error) {
-      console.error("Error fetching meetups:", error);
+      console.error("Error fetching my meetups:", error);
     }
   };
 
@@ -80,9 +93,17 @@ const profile = () => {
   return (
     <div className="profile--wrapper">
       <div className="profile--personalInfo">
-        <h1>{localStorage.getItem('username')}</h1>
-        <button className="userProfile-personalInfo__logout" onClick={() => {GoTo('/Login2')}}>Logga ut</button>
-
+        <h1>{localStorage.getItem("username")}</h1>
+        <button
+          className="userProfile-personalInfo__logout"
+          onClick={() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            GoTo("/Login2");
+          }}
+        >
+          Logga ut
+        </button>
       </div>
 
       <div className="profile--menu">
@@ -126,8 +147,8 @@ const profile = () => {
               <table className="profile-table">
                 <thead>
                   <tr>
-                    <th>id</th>
                     <th>Name</th>
+                    <th>Start</th>
                     <th>Mer Info</th>
                   </tr>
                 </thead>
@@ -136,8 +157,8 @@ const profile = () => {
                     myMeetupsData.map((meetup) => {
                       return (
                         <tr key={meetup.MeetingId}>
-                          <td>{meetup.MeetingId}</td>
                           <td>{meetup.name}</td>
+                          <td>{meetup.starttime}</td>
                           <td>
                             <button onClick={() => handleMoreInfoClick(meetup)}>
                               Mer information
@@ -164,8 +185,8 @@ const profile = () => {
               <table className="profile-table">
                 <thead>
                   <tr>
-                    <th>MeetingId</th>
                     <th>Name</th>
+                    <th>Start</th>
                     <th>Mer Info</th>
                   </tr>
                 </thead>
@@ -174,8 +195,8 @@ const profile = () => {
                     meetupsData.map((meetup) => {
                       return (
                         <tr key={meetup.MeetingId}>
-                          <td>{meetup.MeetingId}</td>
                           <td>{meetup.name}</td>
+                          <td>{meetup.starttime}</td>
                           <td>
                             <button onClick={() => handleMoreInfoClick(meetup)}>
                               Mer information
