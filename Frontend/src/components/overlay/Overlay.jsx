@@ -96,14 +96,15 @@ const Overlay = ({ isOpen, selectedMeetup, onClose }) => {
           <strong>End-time:</strong> {selectedMeetup.endtime}
         </p>
         <p>
+          <strong>Antal amälda:</strong> {selectedMeetup.participants.length}
+        </p>
+        <p>
           <strong>Max antal platser:</strong> {selectedMeetup.capacity}
         </p>
         <p>
           <strong>Värd:</strong> {selectedMeetup.host}
         </p>
-        <p>
-          <strong>Participants:</strong> {selectedMeetup.participants}
-        </p>
+
         {isEventFull ? (
           <button disabled className="button-registerMU">
             Event Fullt
