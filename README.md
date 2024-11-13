@@ -1,6 +1,6 @@
 # MeetUp-fullstack
 
-Fullstack application for creating and signing up for meetups
+-- School-project -- Fullstack application for creating and signing up for meetups
 
 ## Fantastic Sheriffs
 
